@@ -20,15 +20,19 @@ const Footer = () => {
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Book Guesser <FontAwesomeIcon icon={faBookOpenReader} />
-        </p>
-      </header>
-      <Main></Main>
-      <Footer></Footer>
-    </div>
+    <>
+      <div className="wrapper">
+        <div className="App">
+          <header className="App-header">
+            <p>
+              Book Guesser <FontAwesomeIcon icon={faBookOpenReader} />
+            </p>
+          </header>
+          <Main></Main>
+        </div>
+        <Footer></Footer>
+      </div>
+    </>
   );
 }
 

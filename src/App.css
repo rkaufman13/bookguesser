@@ -39,6 +39,24 @@
 
 .book {
   padding: 5px;
+  width:80px;
+  height:120px;
+  display:block;
+  background-size: cover;
+}
+
+.mysteryBook {
+  background-color: #e1c699;
+  font-size: 80px;
+  padding: 5px;
+  width:80px;
+  height:120px;
+  display:block;
+  background-size: cover;
+}
+
+.bookContainer {
+  width:80px;
 }
 
 .container {
@@ -46,11 +64,17 @@
   flex-direction: row;
   width:100%;
   justify-content: space-around;
+  align-items: top;
 }
 
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -30px;
+}
 .footer {
   font-size: small;
   margin-bottom:0px;
   background-color: #ccc;
   padding:20px;
+  height:30px;
 }
