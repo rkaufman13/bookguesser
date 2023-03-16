@@ -52,7 +52,8 @@ const Main = () => {
 
   useEffect(() => {
     console.log(currentBook);
-  }, [currentBook]);
+    console.log(gameOver);
+  }, [currentBook, gameOver]);
 
   const addBook = (index, newBook) => {
     setCurrentBook(null);
@@ -103,17 +104,16 @@ const Main = () => {
       }
     }
 
+    //choose new book
+    chooseBook();
     //increment score
     if (!gameOverNonState) {
       setCurrentScore((prev) => {
         return prev + 1;
       });
-      //choose new book
-      chooseBook();
     } else {
       if (currentScore > highScore) {
         setHighScore(currentScore);
-        setCurrentBook({ title: "" });
       }
     }
   };
