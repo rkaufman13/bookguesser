@@ -16,7 +16,7 @@ for (let i = 1; i<=score;i++){
 books.push("📕");
 }
 
-const message = `${books.join("")} I scored ${score} points in BookGuessr. Can you beat me? https://rkaufman.github.io/bookguessr`;
+const message = `${books.join("")} I scored ${score} points in BookGuessr. Can you beat me? https://rkaufman.github.io/bookguesser`;
 
     return (<dialog className="shareModal" open={shareModalVisible}>
 <header>Share your victory</header>
