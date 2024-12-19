@@ -42,5 +42,6 @@
   },
   "devDependencies": {
     "gh-pages": "^6.2.0"
-  }
+  },
+    "homepage": "http://rkaufman13.github.io/bookguesser"
 }
