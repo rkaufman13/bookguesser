@@ -174,12 +174,6 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/96531-M.jpg",
   },
   {
-    title: "Nice Work",
-    author: "David Lodge",
-    year: "1988",
-    cover: "https://covers.openlibrary.org/b/id/4067603-M.jpg",
-  },
-  {
     title: "The Towers of Trebizond",
     author: "Rose Macaulay",
     year: "1956",
@@ -210,7 +204,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/4435559-M.jpg",
   },
   {
-    title: "Portnoy\u2019s Complaint",
+    title: "Portnoy's Complaint",
     author: "Philip Roth",
     year: "1969",
     cover: "https://covers.openlibrary.org/b/id/6458427-M.jpg",
@@ -611,7 +605,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/6795866-M.jpg",
   },
   {
-    title: "Cat\u2019s Eye",
+    title: "Cat's Eye",
     author: "Margaret Atwood",
     cover: "https://covers.openlibrary.org/b/id/12506526-M.jpg",
   },
@@ -638,7 +632,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/10692109-M.jpg",
   },
   {
-    title: "Humboldt\u2019s Gift",
+    title: "Humboldt's Gift",
     author: "Saul Bellow",
     cover: "https://covers.openlibrary.org/b/id/5411438-M.jpg",
   },
@@ -660,7 +654,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/3965976-M.jpg",
   },
   {
-    title: "The Professor\u2019s House",
+    title: "The Professor's House",
     author: "Willa Cather",
     cover: "https://covers.openlibrary.org/b/id/573461-M.jpg",
   },
@@ -742,7 +736,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/13136548-M.jpg",
   },
   {
-    title: "One Flew Over the Cuckoo\u2019s Nest",
+    title: "One Flew Over the Cuckoo's Nest",
     author: "Ken Kesey",
     cover: "https://covers.openlibrary.org/b/id/9272688-M.jpg",
   },
@@ -954,7 +948,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/9278328-M.jpg",
   },
   {
-    title: "Giovanni\u2019s Room",
+    title: "Giovanni's Room",
     author: "James Baldwin",
     year: "1956",
     cover: "https://covers.openlibrary.org/b/id/97395-M.jpg",
@@ -1006,7 +1000,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/11444993-M.jpg",
   },
   {
-    title: "Breakfast at Tiffany\u2019s",
+    title: "Breakfast at Tiffany's",
     author: "Truman Capote",
     cover: "https://covers.openlibrary.org/b/id/100108-M.jpg",
   },
@@ -1074,7 +1068,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/None-M.jpg",
   },
   {
-    title: "The French Lieutenant\u2019s Woman",
+    title: "The French Lieutenant's Woman",
     author: "John Fowles",
     cover: "https://covers.openlibrary.org/b/id/188822-M.jpg",
   },
@@ -1090,7 +1084,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/8237658-M.jpg",
   },
   {
-    title: "Tess of the D\u2019Urbervilles",
+    title: "Tess of the D'Urbervilles",
     author: "Thomas Hardy",
     cover: "https://covers.openlibrary.org/b/id/13109386-M.jpg",
   },
@@ -1130,7 +1124,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/13124304-M.jpg",
   },
   {
-    title: "Lady Chatterley\u2019s Lover",
+    title: "Lady Chatterley's Lover",
     author: "DH Lawrence",
     year: "1126",
     cover: "https://covers.openlibrary.org/b/id/12983362-M.jpg",
@@ -1320,7 +1314,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/11041760-M.jpg",
   },
   {
-    title: "The Handmaid\u2019s Tale",
+    title: "The Handmaid's Tale",
     author: "Margaret Atwood",
     year: "1985",
     cover: "https://covers.openlibrary.org/b/id/8231851-M.jpg",
@@ -1432,7 +1426,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/None-M.jpg",
   },
   {
-    title: "Childhood\u2019s End",
+    title: "Childhood's End",
     author: "Arthur C Clarke",
     cover: "https://covers.openlibrary.org/b/id/210200-M.jpg",
   },
@@ -1618,7 +1612,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/12976127-M.jpg",
   },
   {
-    title: "The Time Traveler\u2019s Wife",
+    title: "The Time Traveler's Wife",
     author: "Audrey Niffenegger",
     cover: "https://covers.openlibrary.org/b/id/None-M.jpg",
   },
@@ -1796,7 +1790,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/97426-M.jpg",
   },
   {
-    title: "Uncle Tom\u2019s Cabin",
+    title: "Uncle Tom's Cabin",
     author: "Harriet Beecher Stowe",
     cover: "https://covers.openlibrary.org/b/id/12728198-M.jpg",
   },
@@ -1898,7 +1892,7 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/11261770-M.jpg",
   },
   {
-    title: "Midnight\u2019s Children",
+    title: "Midnight's Children",
     author: "Salman Rushdie",
     year: "1981",
     cover: "https://covers.openlibrary.org/b/id/8346713-M.jpg",
@@ -1995,12 +1989,12 @@ const bookdata = [
   },
   {
     title: "Master and Commander",
-    author: "Patrick O\u2019Brian",
+    author: "Patrick O'Brian",
     year: "1969",
     cover: "https://covers.openlibrary.org/b/id/3697943-M.jpg",
   },
   {
-    title: "Gravity\u2019s Rainbow",
+    title: "Gravity's Rainbow",
     author: "Thomas Pynchon",
     cover: "https://covers.openlibrary.org/b/id/97894-M.jpg",
   },
@@ -2034,12 +2028,12 @@ const bookdata = [
     cover: "https://covers.openlibrary.org/b/id/8229197-M.jpg",
   },
   {
-    title: "Sophie\u2019s Choice",
+    title: "Sophie's Choice",
     author: "William Styron",
     cover: "https://covers.openlibrary.org/b/id/6616199-M.jpg",
   },
   {
-    title: "Gulliver\u2019s Travels",
+    title: "Gulliver's Travels",
     author: "Jonathan Swift",
     year: "1726",
     cover: "https://covers.openlibrary.org/b/id/12717083-M.jpg",

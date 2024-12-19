@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { bookdata } from "./data";
 import BooksDisplay from "./BooksDisplay";
 
@@ -7,13 +7,20 @@ const allBooks = () => {
   return bookdata.filter((book) => book.year);
 };
 
+const NewGame = ({startGame})=> {
+  return(
+    <div className="new-game-parent">
+  <div className="new-game-container">Welcome! In this game, you are guessing when books were published. Can you get a high score?
+    <button onClick={startGame}>Start</button></div></div>);
+}
+
 const Main = () => {
   const allBooksForGame = allBooks();
   const [currentBook, setCurrentBook] = useState();
   const [gameOver, setGameOver] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  //const [bookList, setBookList] = useState(initialArray);
+  const [firstTurn, setFirstTurn] = useState(true);
   const bookList = useRef(initialArray);
   const [currentGame, setCurrentGame] = useState(false);
 
@@ -21,7 +28,6 @@ const Main = () => {
     const arrayLength = allBooksForGame.length;
     const randomIndex = Math.floor(Math.random() * arrayLength);
     setCurrentBook(() => allBooksForGame[randomIndex]);
-    console.log("value of current book", currentBook);
     allBooksForGame.splice(randomIndex, 1);
   };
 
@@ -33,27 +39,25 @@ const Main = () => {
     allBooksForGame.splice(randomIndex, 1);
     let tempBookList = [...bookList.current];
     tempBookList.splice(1, 0, startingBook);
-    // setBookList(tempBookList);
+    
     bookList.current = tempBookList;
   };
 
   const clearBookList = () => {
-    // setBookList([...initialArray]);
+    
     bookList.current = initialArray;
   };
 
   const startGame = () => {
     clearBookList();
+    setCurrentScore(0);
+    setFirstTurn(true);
     setCurrentGame(true);
     setGameOver(false);
     chooseAndPlaceBook();
     chooseBook();
   };
 
-  useEffect(() => {
-    console.log(currentBook);
-    console.log(gameOver);
-  }, [currentBook, gameOver]);
 
   const addBook = (index, newBook) => {
     setCurrentBook(null);
@@ -69,7 +73,7 @@ const Main = () => {
       // Then check if each element is different than the one before it
       return pos === 0 || item?.type !== arr[pos - 1].type;
     });
-    //    setBookList(() => tempBookList);
+
     bookList.current = tempBookList;
     //compare years of all books
 
@@ -77,11 +81,9 @@ const Main = () => {
     const earlierBooks = bookList.current.slice(0, index).filter((book) => {
       return book.year;
     });
-    console.log(earlierBooks);
+    
     for (let i = 0; i < earlierBooks.length; i++) {
-      console.log(
-        `Comparing ${newBook.title} (${newBook.year}) with ${earlierBooks[i].title} (${earlierBooks[i].year})`
-      );
+     
       if (newBook.year < earlierBooks[i].year) {
         setGameOver(true);
         gameOverNonState = true;
@@ -93,11 +95,8 @@ const Main = () => {
       .filter((book) => {
         return book.year;
       });
-    console.log("later books", laterBooks);
+
     for (let i = 0; i < laterBooks.length; i++) {
-      console.log(
-        `Comparing ${newBook.title} (${newBook.year}) with ${laterBooks[i].title} (${laterBooks[i].year})`
-      );
       if (newBook.year > laterBooks[i].year) {
         setGameOver(true);
         gameOverNonState = true;
@@ -119,28 +118,31 @@ const Main = () => {
   };
 
   return (
-    <div>
-      Try to place the books in order of publication.
-      <p>{!currentGame && <button onClick={startGame}>Start</button>}</p>
-      <p>
-        <h1>
+    <div className="main">
+      
+      {!currentGame && <NewGame startGame={startGame}/>}
+
+        <div><p>
           {!gameOver && currentGame
-            ? `Your current score:  ${currentScore}`
+            ? <>Your current score: <span className="score">{currentScore}</span></>
             : gameOver
-            ? `Game over! You scored ${currentScore} points.`
+            ? <>Game over! You scored <span className="score">{currentScore}</span> points.</>
             : ""}
-        </h1>
-        {highScore ? <h2>Your high score: {highScore}</h2> : <></>}
+        
+      
+        {highScore ? <>Your high score: <span className="score">{highScore}</span></> : <></>}</p></div>
         {gameOver && <button onClick={startGame}>Play again?</button>}
+      
         {currentBook && bookList && (
           <BooksDisplay
             bookList={bookList}
             addBook={addBook}
             currentBook={currentBook}
             gameOver={gameOver}
+            firstTurn = {firstTurn}
           ></BooksDisplay>
         )}
-      </p>
+      
     </div>
   );
 };

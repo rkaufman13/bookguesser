@@ -4,10 +4,10 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
   return (
     <>
       {!gameOver && (
-        <div style={{ padding: "5px 0px 25px 0px" }}>
-          When was <i>{currentBook.title}</i>, by {currentBook.author}{" "}
+        <h2 style={{ padding: "5px 0px 25px 0px" }}>
+          When was <i>{currentBook.title}</i>, by {currentBook.author},{" "}
           published?
-        </div>
+        </h2>
       )}
       <div className="container">
         {bookList.current.length &&
@@ -49,7 +49,7 @@ const BookOrButton = ({ data, index, addBook, currentBook, gameOver }) => {
           <div
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
-            className="mysteryBook"
+            className="book mysteryBook"
             style={{
               backgroundImage: hover ? `url(${currentBook.cover})` : null,
               color: hover ? "transparent" : "white",
@@ -58,25 +58,27 @@ const BookOrButton = ({ data, index, addBook, currentBook, gameOver }) => {
               addBook(index, currentBook);
             }}
           >
-            ?
+            <div>?</div>
           </div>
         )}
       </>
     );
   } else {
     return (
-      <>
+      <div>
         <div
           style={{ backgroundImage: `url(${data.cover})` }}
           className="book"
         ></div>
-        <p>
+        <div className="bookData">
+        <div className="bookTitle">
           <i>{data?.title}</i>{" "}
-        </p>
-        <p> {data?.author} </p>
-        <br />
-        {gameOver && data?.year}
-      </>
+        </div>
+        <div className="bookAuthor"> {data?.author} </div>
+        
+        <div>{gameOver && data?.year}</div>
+        </div>
+      </div>
     );
   }
 };
