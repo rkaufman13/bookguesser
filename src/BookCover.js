@@ -39,5 +39,5 @@ export default function BookCover({src, title}) {
     <div className="spinner" style={{
         display: loading?"block":"none",
         fontSize:"24px"
-    }} ></div>
+    }} ><div className="lds-dual-ring"></div></div>
 </div>)}

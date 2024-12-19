@@ -1,11 +1,15 @@
 import React, { useState, useRef } from "react";
 import { bookdata } from "./data";
 import BooksDisplay from "./BooksDisplay";
+import ShareDialog from "./ShareDialog";
 
 const initialArray = [{ type: "button" }, { type: "button" }];
 const allBooks = () => {
   return bookdata.filter((book) => book.year);
 };
+
+
+
 
 const NewGame = ({startGame})=> {
   return(
@@ -13,6 +17,7 @@ const NewGame = ({startGame})=> {
   <div className="new-game-container">Welcome! In this game, you are guessing when books were published. Try for the highest score!
     <button onClick={startGame}>Start</button></div></div>);
 }
+
 
 const Main = () => {
   const allBooksForGame = allBooks();
@@ -23,6 +28,22 @@ const Main = () => {
   const [firstTurn, setFirstTurn] = useState(true);
   const bookList = useRef(initialArray);
   const [currentGame, setCurrentGame] = useState(false);
+  const [shareModalVisible,setShareModalVisible] = useState(false);
+  
+
+  const handleOpenModal = ()=> {
+    setShareModalVisible(!shareModalVisible)
+
+  }
+  
+
+  const GameOver = ({currentScore, startGame, highScore})=>{
+    return(<div><h1>Game over!</h1> You scored <span className="score">{currentScore}</span> points.
+    {highScore ? <> <br/> Your high score is: <span className="score">{highScore}</span></> : <></>}
+    <br/><button onClick={startGame}>Play again?</button> <button onClick={handleOpenModal}>Share?</button>
+    </div>);
+    }
+    
 
   const chooseBook = () => {
     const arrayLength = allBooksForGame.length;
@@ -44,7 +65,6 @@ const Main = () => {
   };
 
   const clearBookList = () => {
-    
     bookList.current = initialArray;
   };
 
@@ -119,19 +139,22 @@ const Main = () => {
 
   return (
     <div className="main">
+      {shareModalVisible && 
+       <ShareDialog shareModalVisible={shareModalVisible} setShareModalVisible={setShareModalVisible} score={currentScore}/>}
       
       {!currentGame && <NewGame startGame={startGame}/>}
 
-        <div><p>
+        <div>
           {!gameOver && currentGame
-            ? <>Your current score: <span className="score">{currentScore}</span></>
+            ? <>Your current score: <span className="score">{currentScore}</span>
+            {highScore ? <> Your high score: <span className="score">{highScore}</span></> : <></>}</>
             : gameOver
-            ? <>Game over! You scored <span className="score">{currentScore}</span> points.</>
+            ? <GameOver currentScore={currentScore} startGame={startGame} highScore={highScore} setShareModalVisible={setShareModalVisible} />
             : ""}
         
       
-        {highScore ? <>Your high score: <span className="score">{highScore}</span></> : <></>}</p></div>
-        {gameOver && <button onClick={startGame}>Play again?</button>}
+        </div>
+       
       
         {currentBook && bookList && (
           <BooksDisplay

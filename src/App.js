@@ -5,7 +5,7 @@ import { faBookOpenReader } from "@fortawesome/free-solid-svg-icons";
 
 const Footer = () => {
   return (
-    <div class="footer">
+    <div className="footer">
       Made in a weekend by{" "}
       <a href="http://github.com/rkaufman13">Rachel Kaufman</a>. Book data comes
       from the Guardian's{" "}
@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="body">
    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Hind&display=swap" rel="stylesheet"/>
     
 
