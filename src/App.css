@@ -51,13 +51,11 @@ h2 {
   
   width:160px;
   height:240px;
-  display:block;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
   background-size: cover;
   border-radius: 5px;
-}
-
-.knownBook {
- 
 }
 
 .mysteryBook {
@@ -67,6 +65,19 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.mysteryBookNoCover {
+  font-size: 30px;
+}
+
+.textBook {
+  background-color: #e1c699;
+  border:1px dashed #2D1E2F;
+  font-size: 24px;
+  font-family: "Crimson Text";
+  justify-self: left;
+  align-items: center;
 }
 
 .bookContainer {
@@ -94,8 +105,10 @@ h2 {
   display:flex;
   flex-direction: row;
   width:100%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: top;
+  padding:20px 0px;
+  overflow-x: scroll;
 }
 
 .new-game-parent {

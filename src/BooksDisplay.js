@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import BookCover from './BookCover';
+import { NO_COVER } from "./consts";
 
 const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
   return (
@@ -43,10 +45,31 @@ const BookOrButton = ({ data, index, addBook, currentBook, gameOver }) => {
   }, [gameOver]);
 
   if (data?.type === "button") {
-    return (
-      <>
-        {!gameOver && (
-          <div
+    const classes = "book mysteryBook"
+    const classesWithHover = "book mysteryBook mysteryBookNoCover"
+    
+    if (currentBook?.cover === NO_COVER){
+    
+    return (<>
+    {!gameOver && <div
+    onMouseEnter={toggleHover}
+    onMouseLeave={toggleHover}
+    className={hover? classesWithHover: classes}
+    style={{
+      color: "white",
+    }}
+    onClick={() => {
+      addBook(index, currentBook);
+    }}
+  >
+    <div>{hover? currentBook.title : "?" }</div>
+  </div>}</>)
+    
+    }
+
+    return ( <>
+    
+    {!gameOver && (<div
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
             className="book mysteryBook"
@@ -59,17 +82,13 @@ const BookOrButton = ({ data, index, addBook, currentBook, gameOver }) => {
             }}
           >
             <div>?</div>
-          </div>
-        )}
-      </>
-    );
-  } else {
+          </div>)}</>);
+}
+  
+   else {
     return (
       <div>
-        <div
-          style={{ backgroundImage: `url(${data.cover})` }}
-          className="book"
-        ></div>
+        <BookCover src={data?.cover} title={data?.title}/>
         <div className="bookData">
         <div className="bookTitle">
           <i>{data?.title}</i>{" "}

@@ -1,0 +1,1 @@
+export const NO_COVER="https://covers.openlibrary.org/b/id/None-M.jpg";
