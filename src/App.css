@@ -1,62 +1,93 @@
-.App {
+.html {
+  height:100%;
+}
+.body {
   text-align: center;
+  font-family: "hind", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #EDE5A6;
+  height:100%;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+a {
+  color: #B2D3A8;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 20vh;
+  background-color: #2D1E2F;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 40pt;
-  color: white;
+  flex-direction: row;
+  align-items: left;
+  justify-content: left;
+  color: #EDE5A6;
 }
 
-.App-link {
-  color: #61dafb;
+.header-nav{
+padding: 0px 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header-nav h1 {
+  font-size: 24px;
+  font-family: "Crimson Text";
+  font-weight:700;
+}
+h2 {
+  font-size: 24px;
+  font-family: "Crimson Text";
+  font-weight:600;
+}
+
+.score {
+  font-weight: bolder;
+  background-color: #823200;
+  font-size:24px;
+  color:#EDE5A6;
+  padding:3px 8px;
+  border-radius:2px;
 }
 
 .book {
   padding: 5px;
-  width:80px;
-  height:120px;
+  
+  width:160px;
+  height:240px;
   display:block;
   background-size: cover;
+  border-radius: 5px;
+}
+
+.knownBook {
+ 
 }
 
 .mysteryBook {
   background-color: #e1c699;
   font-size: 80px;
-  padding: 5px;
-  width:80px;
-  height:120px;
-  display:block;
-  background-size: cover;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .bookContainer {
-  width:80px;
+  margin:10px;
+}
+
+.bookData {
+  color: #e1c699;
+  background-color: #2D1E2F;
+  border-radius: 5px;
+  
+  width:160px;
+  font-family: "Crimson Text";
+  padding: 5px;
+}
+
+.bookTitle {
+  font-size: 18px;
+}
+.bookAuthor {
+  font-size:14px;
 }
 
 .container {
@@ -67,14 +98,58 @@
   align-items: top;
 }
 
+.new-game-parent {
+  display:flex;
+  height:inherit;
+  justify-content: center;
+  align-items:  center;
+
+}
+
+.new-game-container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  height:fit-content;
+  border: 1px solid #823200;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: #fDf5b6;
+  box-shadow: 0px 5px 3px #823200;
+}
+
+button {
+  background-color: #823200;
+  color:#EDE5A6;
+  border-radius: 20px;
+  border:0;
+  padding:10px;
+  margin:20px 0 0 0;
+  width:100px;
+
+}
+
+button:hover {
+  background-color: #9B3D12;
+}
+
 .wrapper {
   min-height: 100%;
   margin-bottom: -30px;
 }
 .footer {
-  font-size: small;
+  font-family:"hind";
   margin-bottom:0px;
-  background-color: #ccc;
+  background-color: #2D1E2F;
+  color:#EDE5A6;
   padding:20px;
   height:30px;
+}
+
+.main {
+  height: 80vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content: baseline;
 }

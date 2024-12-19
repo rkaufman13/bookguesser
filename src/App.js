@@ -12,27 +12,34 @@ const Footer = () => {
       <a href="https://www.theguardian.com/books/2009/jan/23/bestbooks-fiction">
         List of 1000 Novels You Must Read
       </a>
-      ; address omissions (of which there are surely many) by making a pull
-      request please.
+      ; address omissions (of which there are surely many) by making a <a href="https://github.com/rkaufman13/bookguesser">pull
+      request</a>, please.
     </div>
   );
 };
 
 function App() {
   return (
-    <>
+    <div className="body">
+   <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Hind&display=swap" rel="stylesheet"/>
+    
+
       <div className="wrapper">
         <div className="App">
           <header className="App-header">
-            <p>
-              Book Guesser <FontAwesomeIcon icon={faBookOpenReader} />
-            </p>
+            <div className="header-nav">
+            <h1>
+              BookGuessr <FontAwesomeIcon icon={faBookOpenReader} />
+            </h1>
+            </div>
           </header>
           <Main></Main>
         </div>
         <Footer></Footer>
       </div>
-    </>
+    </div>
   );
 }
 
