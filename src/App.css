@@ -28,9 +28,14 @@ padding: 0px 10px;
 
 .header-nav h1 {
   font-size: 24px;
+}
+
+h1 {
   font-family: "Crimson Text";
   font-weight:700;
+  font-size: 36px;
 }
+
 h2 {
   font-size: 24px;
   font-family: "Crimson Text";
@@ -51,13 +56,11 @@ h2 {
   
   width:160px;
   height:240px;
-  display:block;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
   background-size: cover;
   border-radius: 5px;
-}
-
-.knownBook {
- 
 }
 
 .mysteryBook {
@@ -67,6 +70,19 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.mysteryBookNoCover {
+  font-size: 30px;
+}
+
+.textBook {
+  background-color: #e1c699;
+  border:1px dashed #2D1E2F;
+  font-size: 24px;
+  font-family: "Crimson Text";
+  justify-self: left;
+  align-items: center;
 }
 
 .bookContainer {
@@ -94,8 +110,10 @@ h2 {
   display:flex;
   flex-direction: row;
   width:100%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: top;
+  padding:20px 0px;
+  overflow-x: scroll;
 }
 
 .new-game-parent {
@@ -152,4 +170,71 @@ button:hover {
   flex-direction:column;
   align-items:center;
   justify-content: baseline;
+}
+
+.lds-dual-ring{
+  color:#2D1E2F;
+}
+
+.lds-dual-ring,
+.lds-dual-ring:after {
+  box-sizing: border-box;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6.4px solid currentColor;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+.shareModal {
+  background-color: #fDf5b6;
+  border: 1px solid #9B3D12;
+  border-radius: 5px;
+  width:65%;
+  height:fit-content;
+  box-shadow: 0px 5px 5px #823200;
+  left: 0%;
+  top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+}
+
+.shareModal header {
+  font-family: "Crimson Text";
+  font-size: 24px;
+  margin-right:auto;
+  border-bottom: 1px solid #2D1E2F;
+}
+
+.shareModal footer {
+  border-top: 1px solid #2D1E2F;
+  margin-top: auto;
+  margin-left:auto;
+}
+
+.message {
+  margin: 30px;
+line-height: 0px;
 }

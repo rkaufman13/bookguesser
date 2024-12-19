@@ -1126,7 +1126,7 @@ const bookdata = [
   {
     title: "Lady Chatterley's Lover",
     author: "DH Lawrence",
-    year: "1126",
+    year: "1932",
     cover: "https://covers.openlibrary.org/b/id/12983362-M.jpg",
   },
   {
@@ -1480,7 +1480,7 @@ const bookdata = [
     title: "The Glass Bead Game",
     author: "Herman Hesse",
     year: "1943",
-    cover: "https://covers.openlibrary.org/b/id/11547809-M.jpg",
+    cover: "https://covers.openlibrary.org/b/id/None-M.jpg",
   },
   {
     title: "Riddley Walker",
@@ -1729,7 +1729,7 @@ const bookdata = [
   {
     title: "The Lord of the Rings",
     author: "JRR Tolkien",
-    year: "1126",
+    year: "1954",
     cover: "https://covers.openlibrary.org/b/id/None-M.jpg",
   },
   {
