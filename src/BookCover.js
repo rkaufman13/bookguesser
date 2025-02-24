@@ -4,7 +4,6 @@ import { NO_COVER } from "./consts";
 
 const ImageCover = ({ src, title, setLoaded }) => {
   const onLoad = useCallback(() => {
-    console.log("loaded");
     setLoaded(true);
   }, []);
   return <img src={src} alt={title} onLoad={onLoad}></img>;

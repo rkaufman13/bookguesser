@@ -40,16 +40,16 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
 
   return (
     <>
-      {!gameOver && (
-        <>
-          <Draggable currentBook={currentBook} />
-          <h2 style={{ padding: "5px 0px 25px 0px" }}>
-            <i>{currentBook.title}</i>, by {currentBook.author}
-          </h2>
-        </>
-      )}
-      <div className="container">
-        <DndContext onDragEnd={handleDragEnd}>
+      <DndContext onDragEnd={handleDragEnd}>
+        {!gameOver && (
+          <>
+            <Draggable currentBook={currentBook} />
+            <h2 style={{ padding: "5px 0px 25px 0px" }}>
+              <i>{currentBook.title}</i>, by {currentBook.author}
+            </h2>
+          </>
+        )}
+        <div className="container">
           {currentBook &&
             bookList &&
             bookList.map((book, idx) => {
@@ -67,8 +67,8 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
                 );
               }
             })}
-        </DndContext>
-      </div>
+        </div>
+      </DndContext>
     </>
   );
 };
