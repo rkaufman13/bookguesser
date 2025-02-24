@@ -27,7 +27,6 @@ const Main = () => {
     const arrayLength = allBooksForGame.length;
     const randomIndex = Math.floor(Math.random() * arrayLength);
     setCurrentBook(allBooksForGame[randomIndex]);
-    debugger;
     allBooksForGame.splice(randomIndex, 1);
   };
 

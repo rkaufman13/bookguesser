@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { Spinner } from "./Spinner";
 import { NO_COVER } from "./consts";
 
-const ImageCover = ({ src, title, setLoading }) => {
-  <img
-    src={src}
-    alt={title}
-    onLoad={() => {
-      setLoading(false);
-    }}
-  ></img>;
+const ImageCover = ({ src, title, setLoaded }) => {
+  const onLoad = useCallback(() => {
+    console.log("loaded");
+    setLoaded(true);
+  }, []);
+  return <img src={src} alt={title} onLoad={onLoad}></img>;
 };
 
 const TextCover = ({ title }) => {
@@ -22,29 +21,20 @@ const TextCover = ({ title }) => {
 };
 
 export function BookCover({ src, title }) {
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   let showTextCover = false;
   if (src === NO_COVER) {
     showTextCover = true;
   }
-
   return (
     <div>
       {showTextCover ? (
         <TextCover title={title} />
       ) : (
-        <ImageCover src={src} setLoading={setLoading} />
+        <ImageCover src={src} setLoaded={setLoaded} />
       )}
 
-      <div
-        className="spinner"
-        style={{
-          display: loading ? "block" : "none",
-          fontSize: "24px",
-        }}
-      >
-        <div className="lds-dual-ring"></div>
-      </div>
+      <Spinner loaded={loaded} showTextCover={showTextCover} />
     </div>
   );
 }

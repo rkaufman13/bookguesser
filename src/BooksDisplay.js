@@ -19,7 +19,6 @@ function Draggable({ currentBook }) {
     });
   const style = {
     transform: CSS.Translate.toString(transform),
-    border: "1px solid red",
   };
   return (
     <div ref={setDraggableNodeRef} {...listeners} {...attributes} style={style}>
@@ -31,7 +30,6 @@ function Draggable({ currentBook }) {
 const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
   const [parent, setParent] = useState(null);
   const [isDropped, setIsDropped] = useState(false);
-
   const handleDragEnd = (event) => {
     if (event.over && event.over.id === "droppable") {
       setIsDropped(true);
@@ -50,40 +48,27 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
           </h2>
         </>
       )}
-
-      <DndContext onDragEnd={handleDragEnd}>
-        {currentBook &&
-          bookList &&
-          bookList.map((book) => {
-            <>
-              <Droppable key={book.id} id={book.id}>
-                {parent === book.id ? Draggable : "Drop here"}
-              </Droppable>
-
-              <div className="container">
-                {bookList.current.length &&
-                  bookList.current.map((book, idx) => {
-                    if (book.type === "button") {
-                      return (
-                        <Droppable id={idx} key={idx}>
-                          <BookDrop
-                            currentBook={currentBook}
-                            gameOver={gameOver}
-                          />
-                        </Droppable>
-                      );
-                    } else {
-                      return (
-                        <div key={idx} className="bookContainer">
-                          <Book data={book} gameOver={gameOver} />
-                        </div>
-                      );
-                    }
-                  })}
-              </div>
-            </>;
-          })}
-      </DndContext>
+      <div className="container">
+        <DndContext onDragEnd={handleDragEnd}>
+          {currentBook &&
+            bookList &&
+            bookList.map((book, idx) => {
+              if (book.type === "button") {
+                return (
+                  <Droppable key={idx} id={idx}>
+                    <BookDrop currentBook={currentBook} gameOver={gameOver} />
+                  </Droppable>
+                );
+              } else {
+                return (
+                  <div key={book.year} className="bookContainer">
+                    <Book data={book} gameOver={gameOver} />
+                  </div>
+                );
+              }
+            })}
+        </DndContext>
+      </div>
     </>
   );
 };
