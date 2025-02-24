@@ -1,105 +1,125 @@
-import React, { useEffect, useState } from "react";
-import BookCover from './BookCover';
+import React, { useState } from "react";
+import { Book, BookCover } from "./BookCover";
 import { NO_COVER } from "./consts";
+import { useDroppable, useDraggable, DndContext } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+
+function Droppable(props) {
+  const { setNodeRef } = useDroppable({
+    id: props.id,
+  });
+  return <div ref={setNodeRef}>{props.children}</div>;
+}
+
+function Draggable({ currentBook }) {
+  const id = currentBook.year;
+  const { attributes, listeners, setDraggableNodeRef, transform } =
+    useDraggable({
+      id: id,
+    });
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    border: "1px solid red",
+  };
+  return (
+    <div ref={setDraggableNodeRef} {...listeners} {...attributes} style={style}>
+      <BookCover src={currentBook.cover} title={currentBook.title} />
+    </div>
+  );
+}
 
 const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
+  const [parent, setParent] = useState(null);
+  const [isDropped, setIsDropped] = useState(false);
+
+  const handleDragEnd = (event) => {
+    if (event.over && event.over.id === "droppable") {
+      setIsDropped(true);
+      setParent(event.over ? event.over.id : null);
+      console.log(JSON.stringify(event));
+    }
+  };
+
   return (
     <>
       {!gameOver && (
-        <h2 style={{ padding: "5px 0px 25px 0px" }}>
-          When was <i>{currentBook.title}</i>, by {currentBook.author},{" "}
-          published?
-        </h2>
+        <>
+          <Draggable currentBook={currentBook} />
+          <h2 style={{ padding: "5px 0px 25px 0px" }}>
+            <i>{currentBook.title}</i>, by {currentBook.author}
+          </h2>
+        </>
       )}
-      <div className="container">
-        {bookList.current.length &&
-          bookList.current.map((book, idx) => {
-            return (
-              <div key={idx} className="bookContainer">
-                <BookOrButton
-                  data={book}
-                  index={idx}
-                  addBook={addBook}
-                  currentBook={currentBook}
-                  gameOver={gameOver}
-                ></BookOrButton>
+
+      <DndContext onDragEnd={handleDragEnd}>
+        {currentBook &&
+          bookList &&
+          bookList.map((book) => {
+            <>
+              <Droppable key={book.id} id={book.id}>
+                {parent === book.id ? Draggable : "Drop here"}
+              </Droppable>
+
+              <div className="container">
+                {bookList.current.length &&
+                  bookList.current.map((book, idx) => {
+                    if (book.type === "button") {
+                      return (
+                        <Droppable id={idx} key={idx}>
+                          <BookDrop
+                            currentBook={currentBook}
+                            gameOver={gameOver}
+                          />
+                        </Droppable>
+                      );
+                    } else {
+                      return (
+                        <div key={idx} className="bookContainer">
+                          <Book data={book} gameOver={gameOver} />
+                        </div>
+                      );
+                    }
+                  })}
               </div>
-            );
+            </>;
           })}
-      </div>
+      </DndContext>
     </>
   );
 };
 
-const BookOrButton = ({ data, index, addBook, currentBook, gameOver }) => {
-  const [hover, setHover] = useState(false);
+const BookDrop = ({ currentBook, gameOver }) => {
+  const classes = "book mysteryBook";
 
-  const toggleHover = () => {
-    setHover(!hover);
-  };
-
-  useEffect(() => {
-    if (gameOver) {
-      setHover(false);
-    }
-  }, [gameOver]);
-
-  if (data?.type === "button") {
-    const classes = "book mysteryBook"
-    const classesWithHover = "book mysteryBook mysteryBookNoCover"
-    
-    if (currentBook?.cover === NO_COVER){
-    
-    return (<>
-    {!gameOver && <div
-    onMouseEnter={toggleHover}
-    onMouseLeave={toggleHover}
-    className={hover? classesWithHover: classes}
-    style={{
-      color: "white",
-    }}
-    onClick={() => {
-      addBook(index, currentBook);
-    }}
-  >
-    <div>{hover? currentBook.title : "?" }</div>
-  </div>}</>)
-    
-    }
-
-    return ( <>
-    
-    {!gameOver && (<div
-            onMouseEnter={toggleHover}
-            onMouseLeave={toggleHover}
-            className="book mysteryBook"
-            style={{
-              backgroundImage: hover ? `url(${currentBook.cover})` : null,
-              color: hover ? "transparent" : "white",
-            }}
-            onClick={() => {
-              addBook(index, currentBook);
-            }}
-          >
-            <div>?</div>
-          </div>)}</>);
-}
-  
-   else {
+  if (currentBook?.cover === NO_COVER) {
     return (
-      <div>
-        <BookCover src={data?.cover} title={data?.title}/>
-        <div className="bookData">
-        <div className="bookTitle">
-          <i>{data?.title}</i>{" "}
-        </div>
-        <div className="bookAuthor"> {data?.author} </div>
-        
-        <div>{gameOver && data?.year}</div>
-        </div>
-      </div>
+      <>
+        {!gameOver && (
+          <div
+            className={classes}
+            style={{
+              color: "white",
+            }}
+          ></div>
+        )}
+      </>
     );
   }
+
+  return (
+    <>
+      {!gameOver && (
+        <div
+          className="book mysteryBook"
+          style={{
+            color: "white",
+          }}
+        >
+          <div>?</div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default BooksDisplay;

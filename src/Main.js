@@ -1,54 +1,33 @@
-import React, { useState, useRef } from "react";
-import { bookdata } from "./data";
+import React, { useState } from "react";
+import { allBooksWithDates } from "./consts";
 import BooksDisplay from "./BooksDisplay";
 import ShareDialog from "./ShareDialog";
+import { GameOver } from "./GameOver";
+import { Score } from "./Score";
+import { NewGame } from "./NewGame";
 
 const initialArray = [{ type: "button" }, { type: "button" }];
-const allBooks = () => {
-  return bookdata.filter((book) => book.year);
-};
-
-
-
-
-const NewGame = ({startGame})=> {
-  return(
-    <div className="new-game-parent">
-  <div className="new-game-container">Welcome! In this game, you are guessing when books were published. Try for the highest score!
-    <button onClick={startGame}>Start</button></div></div>);
-}
-
 
 const Main = () => {
-  const allBooksForGame = allBooks();
+  const allBooksForGame = allBooksWithDates();
   const [currentBook, setCurrentBook] = useState();
   const [gameOver, setGameOver] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [firstTurn, setFirstTurn] = useState(true);
-  const bookList = useRef(initialArray);
+  const [bookList, setBookList] = useState(initialArray);
   const [currentGame, setCurrentGame] = useState(false);
-  const [shareModalVisible,setShareModalVisible] = useState(false);
-  
+  const [shareModalVisible, setShareModalVisible] = useState(false);
 
-  const handleOpenModal = ()=> {
-    setShareModalVisible(!shareModalVisible)
-
-  }
-  
-
-  const GameOver = ({currentScore, startGame, highScore})=>{
-    return(<div><h1>Game over!</h1> You scored <span className="score">{currentScore}</span> points.
-    {highScore ? <> <br/> Your high score is: <span className="score">{highScore}</span></> : <></>}
-    <br/><button onClick={startGame}>Play again?</button> <button onClick={handleOpenModal}>Share?</button>
-    </div>);
-    }
-    
+  const handleOpenModal = () => {
+    setShareModalVisible(!shareModalVisible);
+  };
 
   const chooseBook = () => {
     const arrayLength = allBooksForGame.length;
     const randomIndex = Math.floor(Math.random() * arrayLength);
-    setCurrentBook(() => allBooksForGame[randomIndex]);
+    setCurrentBook(allBooksForGame[randomIndex]);
+    debugger;
     allBooksForGame.splice(randomIndex, 1);
   };
 
@@ -58,14 +37,14 @@ const Main = () => {
     const randomIndex = Math.floor(Math.random() * arrayLength);
     const startingBook = allBooksForGame[randomIndex];
     allBooksForGame.splice(randomIndex, 1);
-    let tempBookList = [...bookList.current];
+    let tempBookList = [...bookList];
     tempBookList.splice(1, 0, startingBook);
-    
-    bookList.current = tempBookList;
+
+    setBookList(tempBookList);
   };
 
   const clearBookList = () => {
-    bookList.current = initialArray;
+    setBookList(initialArray);
   };
 
   const startGame = () => {
@@ -78,10 +57,9 @@ const Main = () => {
     chooseBook();
   };
 
-
   const addBook = (index, newBook) => {
     setCurrentBook(null);
-    let tempBookList = [...bookList.current];
+    let tempBookList = [...bookList];
     tempBookList.splice(
       index,
       0,
@@ -94,24 +72,23 @@ const Main = () => {
       return pos === 0 || item?.type !== arr[pos - 1].type;
     });
 
-    bookList.current = tempBookList;
+    setBookList(tempBookList);
     //compare years of all books
-
+    //todo this can be WAY simplified
     let gameOverNonState = false;
-    const earlierBooks = bookList.current.slice(0, index).filter((book) => {
+    const earlierBooks = bookList.slice(0, index).filter((book) => {
       return book.year;
     });
-    
+
     for (let i = 0; i < earlierBooks.length; i++) {
-     
       if (newBook.year < earlierBooks[i].year) {
         setGameOver(true);
         gameOverNonState = true;
       }
     }
 
-    const laterBooks = bookList.current
-      .slice(index + 1, bookList.current.length - 1)
+    const laterBooks = bookList
+      .slice(index + 1, bookList.length - 1)
       .filter((book) => {
         return book.year;
       });
@@ -139,33 +116,39 @@ const Main = () => {
 
   return (
     <div className="main">
-      {shareModalVisible && 
-       <ShareDialog shareModalVisible={shareModalVisible} setShareModalVisible={setShareModalVisible} score={currentScore}/>}
-      
-      {!currentGame && <NewGame startGame={startGame}/>}
+      {shareModalVisible && (
+        <ShareDialog
+          shareModalVisible={shareModalVisible}
+          setShareModalVisible={setShareModalVisible}
+          score={currentScore}
+        />
+      )}
 
-        <div>
-          {!gameOver && currentGame
-            ? <>Your current score: <span className="score">{currentScore}</span>
-            {highScore ? <> Your high score: <span className="score">{highScore}</span></> : <></>}</>
-            : gameOver
-            ? <GameOver currentScore={currentScore} startGame={startGame} highScore={highScore} setShareModalVisible={setShareModalVisible} />
-            : ""}
-        
-      
-        </div>
-       
-      
-        {currentBook && bookList && (
-          <BooksDisplay
-            bookList={bookList}
-            addBook={addBook}
-            currentBook={currentBook}
-            gameOver={gameOver}
-            firstTurn = {firstTurn}
-          ></BooksDisplay>
+      {!currentGame && <NewGame startGame={startGame} />}
+
+      <div>
+        {!gameOver && currentGame ? (
+          <Score highScore={highScore} currentScore={currentScore} />
+        ) : gameOver ? (
+          <GameOver
+            currentScore={currentScore}
+            startGame={startGame}
+            highScore={highScore}
+            handleOpenModal={handleOpenModal}
+          />
+        ) : (
+          ""
         )}
-      
+      </div>
+      {currentGame && (
+        <BooksDisplay
+          bookList={bookList}
+          addBook={addBook}
+          currentBook={currentBook}
+          gameOver={gameOver}
+          firstTurn={firstTurn}
+        ></BooksDisplay>
+      )}
     </div>
   );
 };
