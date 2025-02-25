@@ -5,23 +5,30 @@ import { useDroppable, useDraggable, DndContext } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 
 function Droppable(props) {
-  const { setNodeRef } = useDroppable({
+  const { isOver, attributes, listeners, setNodeRef } = useDroppable({
     id: props.id,
   });
-  return <div ref={setNodeRef}>{props.children}</div>;
+
+  const style = {
+    backgroundColor: isOver ? "green" : undefined,
+  };
+  return (
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      {props.children}
+    </div>
+  );
 }
 
 function Draggable({ currentBook }) {
   const id = currentBook.year;
-  const { attributes, listeners, setDraggableNodeRef, transform } =
-    useDraggable({
-      id: id,
-    });
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: id,
+  });
   const style = {
     transform: CSS.Translate.toString(transform),
   };
   return (
-    <div ref={setDraggableNodeRef} {...listeners} {...attributes} style={style}>
+    <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
       <BookCover src={currentBook.cover} title={currentBook.title} />
     </div>
   );
@@ -31,10 +38,9 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
   const [parent, setParent] = useState(null);
   const [isDropped, setIsDropped] = useState(false);
   const handleDragEnd = (event) => {
-    if (event.over && event.over.id === "droppable") {
+    if (event.over) {
       setIsDropped(true);
       setParent(event.over ? event.over.id : null);
-      console.log(JSON.stringify(event));
     }
   };
 
@@ -55,8 +61,8 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
             bookList.map((book, idx) => {
               if (book.type === "button") {
                 return (
-                  <Droppable key={idx} id={idx}>
-                    <BookDrop currentBook={currentBook} gameOver={gameOver} />
+                  <Droppable key={idx} id={`droppable-${idx}`}>
+                    <BookDrop gameOver={gameOver} />
                   </Droppable>
                 );
               } else {
@@ -73,35 +79,18 @@ const BooksDisplay = ({ bookList, currentBook, addBook, gameOver }) => {
   );
 };
 
-const BookDrop = ({ currentBook, gameOver }) => {
+const BookDrop = ({ gameOver }) => {
   const classes = "book mysteryBook";
-
-  if (currentBook?.cover === NO_COVER) {
-    return (
-      <>
-        {!gameOver && (
-          <div
-            className={classes}
-            style={{
-              color: "white",
-            }}
-          ></div>
-        )}
-      </>
-    );
-  }
 
   return (
     <>
       {!gameOver && (
         <div
-          className="book mysteryBook"
+          className={classes}
           style={{
             color: "white",
           }}
-        >
-          <div>?</div>
-        </div>
+        ></div>
       )}
     </>
   );
