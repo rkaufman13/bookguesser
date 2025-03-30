@@ -1,17 +1,13 @@
-export const GameOver = ({
-  currentScore,
-  startGame,
-  highScore,
-  handleOpenModal,
-}) => {
+export const GameOver = ({ scores, startGame, handleOpenModal }) => {
   return (
     <div>
       <h1>Game over!</h1> You scored{" "}
-      <span className="score">{currentScore}</span> points.
-      {highScore ? (
+      <span className="score">{scores.current}</span> points.
+      {scores.high ? (
         <>
           {" "}
-          <br /> Your high score is: <span className="score">{highScore}</span>
+          <br /> Your high score is:{" "}
+          <span className="score">{scores.high}</span>
         </>
       ) : (
         <></>

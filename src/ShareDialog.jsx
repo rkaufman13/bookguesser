@@ -20,7 +20,7 @@ const message = `${books.join("")} I scored ${score} points in BookGuessr. Can y
 
     return (<dialog className="shareModal" open={shareModalVisible}>
 <header>Share your victory</header>
-<div className="message">{message}{" "}<button onClick={copyText}>{copied?"Copied!":"Copy"}</button></div>
+<div className="message"><p>{message}{" "}<button onClick={copyText}>{copied?"Copied!":"Copy"}</button></p></div>
 <footer><button onClick={handleClose}>Close</button></footer>
     </dialog>);
 }

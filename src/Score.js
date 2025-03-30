@@ -1,11 +1,17 @@
-export const Score = ({ currentScore, highScore }) => {
+export const Score = ({ scores }) => {
   return (
     <>
-      Your current score: <span className="score">{currentScore}</span>
-      {highScore ? (
+      {scores.current ? (
+        <>
+          Your current score: <span className="score">{scores.current}</span>
+        </>
+      ) : (
+        <></>
+      )}
+      {scores.high ? (
         <>
           {" "}
-          Your high score: <span className="score">{highScore}</span>
+          Your high score: <span className="score">{scores.high}</span>
         </>
       ) : (
         <></>

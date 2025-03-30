@@ -2,10 +2,15 @@ import { useState, useCallback } from "react";
 import { Spinner } from "./Spinner";
 import { NO_COVER } from "./consts";
 
+const env = process.env;
+if (env.NODE_ENV === "development") {
+  console.log("In development/debug mode.");
+}
+
 const ImageCover = ({ src, title, setLoaded }) => {
   const onLoad = useCallback(() => {
     setLoaded(true);
-  }, []);
+  }, [setLoaded]);
   return <img src={src} alt={title} onLoad={onLoad}></img>;
 };
 
@@ -19,14 +24,17 @@ const TextCover = ({ title }) => {
   );
 };
 
-export function BookCover({ src, title }) {
+export function BookCover({ src, title, year }) {
   const [loaded, setLoaded] = useState(false);
   let showTextCover = false;
   if (src === NO_COVER) {
     showTextCover = true;
   }
   return (
-    <div>
+    <div className="book">
+      {env.NODE_ENV === "development" && (
+        <div className="tooltiptext">{year}</div>
+      )}
       {showTextCover ? (
         <TextCover title={title} />
       ) : (
@@ -40,8 +48,9 @@ export function BookCover({ src, title }) {
 
 export const Book = ({ data, gameOver }) => {
   return (
-    <div>
-      <BookCover src={data?.cover} title={data?.title} />
+    <>
+      {" "}
+      <BookCover src={data?.cover} title={data?.title} year={data?.year} />
       <div className="bookData">
         <div className="bookTitle">
           <i>{data?.title}</i>{" "}
@@ -50,6 +59,6 @@ export const Book = ({ data, gameOver }) => {
 
         <div>{gameOver && data?.year}</div>
       </div>
-    </div>
+    </>
   );
 };

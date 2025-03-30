@@ -1,3 +1,11 @@
+:root{
+  --book-img-height: 200px;
+  --book-img-width:133px;
+  --bg-color-1: rgba(251,247,222,1);
+  --bg-color-2: rgba(225,198,153,1);
+  --modal-background: #fDf2c9;
+}
+
 .html {
   height:100%;
 }
@@ -6,7 +14,8 @@
   font-family: "hind", serif;
   font-weight: 400;
   font-style: normal;
-  background-color: #EDE5A6;
+  background: rgb(251,247,222);
+background: linear-gradient(120deg,var(--bg-color-1) 0%, var(--bg-color-1) 35%, var(--bg-color-2) 100%);
   height:100%;
 }
 a {
@@ -37,7 +46,7 @@ h1 {
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-family: "Crimson Text";
   font-weight:600;
 }
@@ -52,15 +61,50 @@ h2 {
 }
 
 .book {
-  padding: 5px;
-  
-  width:160px;
-  height:240px;
+  width:var(--book-img-width);
+  height:var(--book-img-height);
+  padding:5px;
   display:flex;
   flex-direction: column;
   justify-content: center;
-  background-size: cover;
   border-radius: 5px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.book:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+
+.book img {
+  height: var(--book-img-height);
+}
+
+.bookToPlace {
+display:flex;
+flex-direction: column;
+align-items: center;
+border-radius: 5px;
+margin:1rem;
+padding:1rem;
+box-shadow: 0px 5px 5px #823200;
+
+background-color: rgba(225,198,153,0.1)
 }
 
 .mysteryBook {
@@ -71,6 +115,7 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
 
 .mysteryBookNoCover {
   font-size: 30px;
@@ -94,13 +139,13 @@ h2 {
   background-color: #2D1E2F;
   border-radius: 5px;
   
-  width:160px;
+  width:var(--book-img-width);
   font-family: "Crimson Text";
   padding: 5px;
 }
 
 .bookTitle {
-  font-size: 18px;
+  font-size: 20px;
 }
 .bookAuthor {
   font-size:14px;
@@ -109,12 +154,26 @@ h2 {
 .container {
   display:flex;
   flex-direction: row;
-  width:100%;
+  height: fit-content;
+
   justify-content: center;
-  align-items: top;
-  padding:20px 0px;
-  overflow-x: scroll;
+margin-top: 2rem;
+
 }
+
+
+.droppable {
+  width:140px;
+  height:var(--book-img-height);
+  transition: width 1s;
+}
+
+.over {
+  background-color: #e1c699;
+  border-radius: 5%;
+}
+
+
 
 .new-game-parent {
   display:flex;
@@ -132,7 +191,7 @@ h2 {
   border: 1px solid #823200;
   padding: 40px;
   border-radius: 20px;
-  background-color: #fDf5b6;
+  background-color: var(--modal-background);
   box-shadow: 0px 5px 3px #823200;
 }
 
@@ -165,17 +224,53 @@ button:hover {
 }
 
 .main {
-  height: 80vh;
+  min-height: 80vh;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content: baseline;
+  justify-content: center;
 }
 
-.lds-dual-ring{
-  color:#2D1E2F;
+
+
+.shareModal {
+  background-color:var(--modal-background);
+  border: 1px solid #9B3D12;
+  border-radius: 5px;
+  width:65%;
+  height:fit-content;
+  box-shadow: 0px 5px 5px #823200;
+  left: 0%;
+  top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
 }
 
+.shareModal header {
+  font-family: "Crimson Text";
+  font-size: 24px;
+  margin-right:auto;
+  border-bottom: 1px solid #2D1E2F;
+}
+
+.shareModal footer {
+  border-top: 1px solid #2D1E2F;
+  margin-top: auto;
+  margin-left:auto;
+}
+
+.shareModal button {
+  margin:5px;
+}
+
+.message {
+  margin: 30px;
+
+}
+
+
+/* spinner */
 .lds-dual-ring,
 .lds-dual-ring:after {
   box-sizing: border-box;
@@ -203,38 +298,4 @@ button:hover {
   100% {
     transform: rotate(360deg);
   }
-}
-
-
-
-.shareModal {
-  background-color: #fDf5b6;
-  border: 1px solid #9B3D12;
-  border-radius: 5px;
-  width:65%;
-  height:fit-content;
-  box-shadow: 0px 5px 5px #823200;
-  left: 0%;
-  top: 25%;
-  display: flex;
-  flex-direction: column;
-  align-items: space-around;
-}
-
-.shareModal header {
-  font-family: "Crimson Text";
-  font-size: 24px;
-  margin-right:auto;
-  border-bottom: 1px solid #2D1E2F;
-}
-
-.shareModal footer {
-  border-top: 1px solid #2D1E2F;
-  margin-top: auto;
-  margin-left:auto;
-}
-
-.message {
-  margin: 30px;
-line-height: 0px;
 }
