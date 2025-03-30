@@ -51,9 +51,9 @@ export const Book = ({ data, gameOver }) => {
     <>
       {" "}
       <BookCover src={data?.cover} title={data?.title} year={data?.year} />
-      <div className="bookData">
+      <div className={!data.correct ? "fail" : "bookData"}>
         <div className="bookTitle">
-          <i>{data?.title}</i>{" "}
+          {!data.correct && "❌"} <i>{data?.title}</i>{" "}
         </div>
         <div className="bookAuthor"> {data?.author} </div>
 

@@ -47,6 +47,7 @@ const BooksDisplay = ({
   chooseBook,
   setScores,
   setGameOver,
+  scores,
 }) => {
   const handleDragEnd = (event, currentBook) => {
     const { over, active } = event;
@@ -64,7 +65,6 @@ const BooksDisplay = ({
       } else if (direction === "+") {
         if (overYear <= activeYear) {
           //now we need to look ahead to the next item in the list
-          debugger;
           const overIndex = bookList.findIndex((book) => {
             return parseInt(book.id) === overYear;
           });
@@ -81,20 +81,8 @@ const BooksDisplay = ({
       }
 
       if (correct) {
-        //update list
-        setBookList((items) => {
-          const tempBookList = [...items];
-          const oldIndex = items.findIndex((item) => {
-            return parseInt(item.id) === overYear;
-          });
-          if (direction === "-") {
-            tempBookList.splice(oldIndex, 0, currentBook);
-          }
-          if (direction === "+") {
-            tempBookList.splice(oldIndex + 1, 0, currentBook);
-          }
-          return tempBookList;
-        });
+        currentBook = { ...currentBook, correct: true };
+        updateBookList(setBookList, overYear, direction, currentBook);
 
         chooseBook();
         setScores((prev) => {
@@ -105,7 +93,11 @@ const BooksDisplay = ({
           return newScores;
         });
       } else {
+        currentBook = { ...currentBook, correct: false };
+        updateBookList(setBookList, overYear, direction, currentBook);
         setGameOver(true);
+
+        window.localStorage.setItem("bookGuesserHighScore", scores.high);
       }
     }
   };
@@ -166,3 +158,18 @@ const BooksDisplay = ({
 };
 
 export default BooksDisplay;
+function updateBookList(setBookList, overYear, direction, currentBook) {
+  setBookList((items) => {
+    const tempBookList = [...items];
+    const oldIndex = items.findIndex((item) => {
+      return parseInt(item.id) === overYear;
+    });
+    if (direction === "-") {
+      tempBookList.splice(oldIndex, 0, currentBook);
+    }
+    if (direction === "+") {
+      tempBookList.splice(oldIndex + 1, 0, currentBook);
+    }
+    return tempBookList;
+  });
+}

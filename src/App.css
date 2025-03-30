@@ -70,25 +70,6 @@ h2 {
   border-radius: 5px;
 }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 6px;
- 
-  /* Position the tooltip text - see examples below! */
-  position: absolute;
-  z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.book:hover .tooltiptext {
-  visibility: visible;
-}
-
 
 
 .book img {
@@ -142,6 +123,16 @@ background-color: rgba(225,198,153,0.1)
   width:var(--book-img-width);
   font-family: "Crimson Text";
   padding: 5px;
+}
+
+.fail {
+  border-radius: 5px;
+  
+  width:var(--book-img-width);
+  font-family: "Crimson Text";
+  padding: 5px;
+  background-color: #9B3D12;
+  color: #e1c699;
 }
 
 .bookTitle {

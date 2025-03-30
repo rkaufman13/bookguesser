@@ -10,7 +10,10 @@ const Main = () => {
   const allBooksForGame = allBooksWithDates();
   const [currentBook, setCurrentBook] = useState();
   const [gameOver, setGameOver] = useState(false);
-  const [scores, setScores] = useState({ current: 0, high: 0 });
+  const [scores, setScores] = useState({
+    current: 0,
+    high: window.localStorage.getItem("bookGuesserHighScore") ?? 0,
+  });
   const [bookList, setBookList] = useState([]);
   const [currentGame, setCurrentGame] = useState(false);
   const [shareModalVisible, setShareModalVisible] = useState(false);
@@ -30,7 +33,7 @@ const Main = () => {
   const chooseAndPlaceBook = () => {
     const arrayLength = allBooksForGame.length;
     const randomIndex = Math.floor(Math.random() * arrayLength);
-    const startingBook = allBooksForGame[randomIndex];
+    const startingBook = { ...allBooksForGame[randomIndex], correct: true };
     allBooksForGame.splice(randomIndex, 1);
 
     setBookList([startingBook]);
@@ -86,6 +89,7 @@ const Main = () => {
           setBookList={setBookList}
           chooseBook={chooseBook}
           setScores={setScores}
+          scores={scores}
         ></BooksDisplay>
       )}
     </div>
