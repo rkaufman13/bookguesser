@@ -11,6 +11,7 @@ function DraggableItem(props) {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    touchAction: "none",
   };
 
   return (

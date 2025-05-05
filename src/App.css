@@ -1,23 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
 :root{
   --book-img-height: 200px;
   --book-img-width:133px;
   --bg-color-1: rgba(251,247,222,1);
   --bg-color-2: rgba(225,198,153,1);
   --modal-background: #fDf2c9;
+  --book-title-font-size: 20px;
+  --book-title-h2-font-size:24px;
+  --droppable-width: 140px;
 }
 
-.html {
+html {
   height:100%;
 }
-.body {
+body {
   text-align: center;
   font-family: "hind", serif;
   font-weight: 400;
   font-style: normal;
+  min-height: 100%;
   background: rgb(251,247,222);
-background: linear-gradient(120deg,var(--bg-color-1) 0%, var(--bg-color-1) 35%, var(--bg-color-2) 100%);
-  height:100%;
+  background: linear-gradient(120deg,var(--bg-color-1) 0%, var(--bg-color-1) 35%, var(--bg-color-2) 100%);
+  background-attachment: fixed;
 }
+
 a {
   color: #B2D3A8;
 }
@@ -46,7 +57,7 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: var(--book-title-font-size);
   font-family: "Crimson Text";
   font-weight:600;
 }
@@ -136,7 +147,7 @@ background-color: rgba(225,198,153,0.1)
 }
 
 .bookTitle {
-  font-size: 20px;
+  font-size: var(--book-title-font-size)
 }
 .bookAuthor {
   font-size:14px;
@@ -154,7 +165,7 @@ margin-top: 2rem;
 
 
 .droppable {
-  width:140px;
+  width:var(--droppable-width);
   height:var(--book-img-height);
   transition: width 1s;
 }
@@ -289,4 +300,27 @@ button:hover {
   100% {
     transform: rotate(360deg);
   }
+}
+
+@media screen and (max-width:800px){
+  :root{
+    --book-img-height: 100px;
+    --book-img-width:65px;
+    --book-h2-title-font-size: 14px;
+    --book-title-font-size: 12px;
+    --droppable-width: 70px;
+  }
+  
+  
+  .footer {
+    height: auto;
+  }
+.bookData {
+  margin-top:20px;
+}
+
+.fail {
+  margin-top: 20px;
+}
+
 }
