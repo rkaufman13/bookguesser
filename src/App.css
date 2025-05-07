@@ -40,6 +40,7 @@ a {
   align-items: left;
   justify-content: left;
   color: #EDE5A6;
+
 }
 
 .header-nav{
@@ -153,14 +154,18 @@ background-color: rgba(225,198,153,0.1)
   font-size:14px;
 }
 
+#containerParent {
+  width:100vw;
+  overflow-x: scroll;
+}
+
 .container {
   display:flex;
+
   flex-direction: row;
   height: fit-content;
-
   justify-content: center;
 margin-top: 2rem;
-
 }
 
 
@@ -168,6 +173,7 @@ margin-top: 2rem;
   width:var(--droppable-width);
   height:var(--book-img-height);
   transition: width 1s;
+  flex-shrink: 0;
 }
 
 .over {
@@ -215,6 +221,7 @@ button:hover {
 .wrapper {
   min-height: 100%;
   margin-bottom: -30px;
+  width:100vw;
 }
 .footer {
   font-family:"hind";
@@ -223,6 +230,7 @@ button:hover {
   color:#EDE5A6;
   padding:20px;
   height:30px;
+  width:100vw;
 }
 
 .main {
@@ -302,6 +310,14 @@ button:hover {
   }
 }
 
+.bookData {
+  margin-top:20px;
+}
+
+.fail {
+  margin-top: 20px;
+}
+
 @media screen and (max-width:800px){
   :root{
     --book-img-height: 100px;
@@ -315,12 +331,6 @@ button:hover {
   .footer {
     height: auto;
   }
-.bookData {
-  margin-top:20px;
-}
 
-.fail {
-  margin-top: 20px;
-}
 
 }

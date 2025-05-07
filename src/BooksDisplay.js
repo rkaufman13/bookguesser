@@ -124,34 +124,36 @@ const BooksDisplay = ({
             </DraggableItem>
           </div>
         )}
-        <div className="container">
-          {currentBook && bookList && (
-            <DroppableContainer
-              id={`${bookList[0].id}-1`}
-              key={`${bookList[0].id}-1`}
-              gameOver={gameOver}
-            >
-              {" "}
-            </DroppableContainer>
-          )}
-          {currentBook &&
-            bookList &&
-            bookList.map((book, idx) => {
-              return (
-                <>
-                  <div key={book.year} className="bookContainer">
-                    <Book data={book} gameOver={gameOver} />
-                  </div>
-                  <DroppableContainer
-                    id={`${book.year}+1`}
-                    key={`${book.year}+1`}
-                    gameOver={gameOver}
-                  >
-                    {" "}
-                  </DroppableContainer>
-                </>
-              );
-            })}
+        <div id="containerParent">
+          <div className="container">
+            {currentBook && bookList && (
+              <DroppableContainer
+                id={`${bookList[0].id}-1`}
+                key={`${bookList[0].id}-1`}
+                gameOver={gameOver}
+              >
+                {" "}
+              </DroppableContainer>
+            )}
+            {currentBook &&
+              bookList &&
+              bookList.map((book, idx) => {
+                return (
+                  <>
+                    <div key={book.year} className="bookContainer">
+                      <Book data={book} gameOver={gameOver} />
+                    </div>
+                    <DroppableContainer
+                      id={`${book.year}+1`}
+                      key={`${book.year}+1`}
+                      gameOver={gameOver}
+                    >
+                      {" "}
+                    </DroppableContainer>
+                  </>
+                );
+              })}
+          </div>
         </div>
       </DndContext>
     </>
