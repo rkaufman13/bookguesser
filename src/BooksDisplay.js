@@ -43,12 +43,15 @@ function DroppableContainer(props) {
 const BooksDisplay = ({
   bookList,
   currentBook,
+  setCurrentBook,
   gameOver,
   setBookList,
   chooseBook,
   setScores,
   setGameOver,
   scores,
+  allBooksForGame,
+  setAllBooksForGame,
 }) => {
   const handleDragEnd = (event, currentBook) => {
     const { over, active } = event;
@@ -85,7 +88,7 @@ const BooksDisplay = ({
         currentBook = { ...currentBook, correct: true };
         updateBookList(setBookList, overYear, direction, currentBook);
 
-        chooseBook();
+        chooseBook(allBooksForGame, setCurrentBook, setAllBooksForGame);
         setScores((prev) => {
           const newScores = { ...prev, current: prev.current++ };
           if (newScores.current >= prev.high) {

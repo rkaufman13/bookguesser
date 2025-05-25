@@ -6,8 +6,24 @@ import { GameOver } from "./GameOver";
 import { Score } from "./Score";
 import { NewGame } from "./NewGame";
 
+export const chooseBook = (
+  allBooksForGame,
+  setCurrentBook,
+  setAllBooksForGame
+) => {
+  const arrayLength = allBooksForGame.length;
+  const randomIndex = Math.floor(Math.random() * arrayLength);
+  setCurrentBook((ignored) => {
+    const currentBook = allBooksForGame[randomIndex];
+    setAllBooksForGame((prev) => {
+      return prev.filter((book) => book.id !== currentBook.id);
+    });
+    return currentBook;
+  });
+};
+
 const Main = () => {
-  const allBooksForGame = allBooksWithDates();
+  const [allBooksForGame, setAllBooksForGame] = useState(allBooksWithDates());
   const [currentBook, setCurrentBook] = useState();
   const [gameOver, setGameOver] = useState(false);
   const [scores, setScores] = useState({
@@ -22,20 +38,13 @@ const Main = () => {
     setShareModalVisible(!shareModalVisible);
   };
 
-  const chooseBook = () => {
-    const arrayLength = allBooksForGame.length;
-    const randomIndex = Math.floor(Math.random() * arrayLength);
-    setCurrentBook(allBooksForGame[randomIndex]);
-    allBooksForGame.splice(randomIndex, 1);
-  };
-
   //special case for first turn
   const chooseAndPlaceBook = () => {
     const arrayLength = allBooksForGame.length;
     const randomIndex = Math.floor(Math.random() * arrayLength);
     const startingBook = { ...allBooksForGame[randomIndex], correct: true };
-    allBooksForGame.splice(randomIndex, 1);
-
+    const newList = [...allBooksForGame].toSpliced(0, randomIndex, 1);
+    setAllBooksForGame(newList);
     setBookList([startingBook]);
   };
 
@@ -52,7 +61,7 @@ const Main = () => {
     setCurrentGame(true);
     setGameOver(false);
     chooseAndPlaceBook();
-    chooseBook();
+    chooseBook(allBooksForGame, setCurrentBook, setAllBooksForGame);
   };
 
   return (
@@ -84,12 +93,15 @@ const Main = () => {
         <BooksDisplay
           bookList={bookList}
           currentBook={currentBook}
+          setCurrentBook={setCurrentBook}
           gameOver={gameOver}
           setGameOver={setGameOver}
           setBookList={setBookList}
           chooseBook={chooseBook}
           setScores={setScores}
           scores={scores}
+          allBooksForGame={allBooksForGame}
+          setAllBooksForGame={setAllBooksForGame}
         ></BooksDisplay>
       )}
     </div>
