@@ -1,30 +1,8 @@
 import React from "react";
-import { Book, BookCover } from "./BookCover";
-import { DndContext, useDroppable, useDraggable } from "@dnd-kit/core";
+import { Book } from "./BookCover";
+import { DndContext, useDroppable } from "@dnd-kit/core";
 
-import { CSS } from "@dnd-kit/utilities";
-
-function DraggableItem(props) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useDraggable({ id: props.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    touchAction: "none",
-  };
-
-  return (
-    <div
-      ref={props.isDisabled ? undefined : setNodeRef}
-      {...listeners}
-      {...attributes}
-      style={style}
-    >
-      {props.children}
-    </div>
-  );
-}
+import { BookToPlace } from "./BookToPlace";
 
 function DroppableContainer(props) {
   const { setNodeRef, isOver } = useDroppable({ id: props.id });
@@ -109,24 +87,7 @@ const BooksDisplay = ({
   return (
     <>
       <DndContext onDragEnd={(e) => handleDragEnd(e, currentBook)}>
-        {!gameOver && (
-          <div className="bookToPlace">
-            <h2 style={{ padding: "5px 0px 25px 0px" }}>
-              <i>{currentBook.title}</i>, by {currentBook.author}
-            </h2>
-            <DraggableItem
-              id={currentBook.year}
-              year={currentBook.year}
-              isDisabled={false}
-            >
-              <BookCover
-                src={currentBook.cover}
-                title={currentBook.title}
-                year={currentBook.year}
-              />
-            </DraggableItem>
-          </div>
-        )}
+        {!gameOver && <BookToPlace currentBook={currentBook}></BookToPlace>}
         <div id="containerParent">
           <div className="container">
             {currentBook && bookList && (

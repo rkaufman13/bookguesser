@@ -10,7 +10,7 @@
   --bg-color-1: rgba(251,247,222,1);
   --bg-color-2: rgba(225,198,153,1);
   --modal-background: #fDf2c9;
-  --book-title-font-size: 20px;
+  --book-title-font-size: 26px;
   --book-title-h2-font-size:24px;
   --droppable-width: 140px;
 }
@@ -90,14 +90,22 @@ h2 {
 
 .bookToPlace {
 display:flex;
-flex-direction: column;
-align-items: center;
+flex-direction: row;
+align-items: baseline;
 border-radius: 5px;
 margin:1rem;
 padding:1rem;
 box-shadow: 0px 5px 5px #823200;
 
 background-color: rgba(225,198,153,0.1)
+}
+
+#bookToPlaceData{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+  margin-left:1rem;
 }
 
 .mysteryBook {
