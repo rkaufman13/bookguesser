@@ -9,6 +9,7 @@
   --book-img-width:133px;
   --bg-color-1: rgba(251,247,222,1);
   --bg-color-2: rgba(225,198,153,1);
+  --dark-color: #2D1E2F;
   --modal-background: #fDf2c9;
   --book-title-font-size: 26px;
   --book-title-h2-font-size:24px;
@@ -34,7 +35,7 @@ a {
 }
 
 .App-header {
-  background-color: #2D1E2F;
+  background-color: var(--dark-color);
   display: flex;
   flex-direction: row;
   align-items: left;
@@ -124,7 +125,7 @@ background-color: rgba(225,198,153,0.1)
 
 .textBook {
   background-color: #e1c699;
-  border:1px dashed #2D1E2F;
+  border:1px dashed var(--dark-color);
   font-size: 24px;
   font-family: "Crimson Text";
   justify-self: left;
@@ -137,7 +138,7 @@ background-color: rgba(225,198,153,0.1)
 
 .bookData {
   color: #e1c699;
-  background-color: #2D1E2F;
+  background-color: var(--dark-color);
   border-radius: 5px;
   
   width:var(--book-img-width);
@@ -165,6 +166,8 @@ background-color: rgba(225,198,153,0.1)
 #containerParent {
   width:100vw;
   overflow-x: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-color-1) #823200 ;
 }
 
 .container {
@@ -178,13 +181,15 @@ margin-top: 2rem;
 
 
 .droppable {
-  width:var(--droppable-width);
+  width:calc(var(--droppable-width)/5);
   height:var(--book-img-height);
   transition: width 1s;
   flex-shrink: 0;
+
 }
 
 .over {
+  width:var(--droppable-width);
   background-color: #e1c699;
   border-radius: 5%;
 }
@@ -234,7 +239,7 @@ button:hover {
 .footer {
   font-family:"hind";
   margin-bottom:0px;
-  background-color: #2D1E2F;
+  background-color: var(--dark-color);;
   color:#EDE5A6;
   padding:20px;
   height:30px;
@@ -269,11 +274,11 @@ button:hover {
   font-family: "Crimson Text";
   font-size: 24px;
   margin-right:auto;
-  border-bottom: 1px solid #2D1E2F;
+  border-bottom: 1px solid var(--dark-color);
 }
 
 .shareModal footer {
-  border-top: 1px solid #2D1E2F;
+  border-top: 1px solid var(--dark-color);
   margin-top: auto;
   margin-left:auto;
 }
