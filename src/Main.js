@@ -34,6 +34,17 @@ const Main = () => {
   const [currentGame, setCurrentGame] = useState(false);
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
+  const updateScores = () => {
+    setScores((prev) => {
+      const newScores = { ...prev, current: prev.current++ };
+      if (newScores.current >= prev.high) {
+        newScores.high = newScores.current;
+        window.localStorage.setItem("bookGuesserHighScore", scores.high);
+      }
+      return newScores;
+    });
+  };
+
   const handleOpenModal = () => {
     setShareModalVisible(!shareModalVisible);
   };
@@ -98,8 +109,7 @@ const Main = () => {
           setGameOver={setGameOver}
           setBookList={setBookList}
           chooseBook={chooseBook}
-          setScores={setScores}
-          scores={scores}
+          updateScores={updateScores}
           allBooksForGame={allBooksForGame}
           setAllBooksForGame={setAllBooksForGame}
         ></BooksDisplay>

@@ -22,9 +22,8 @@ const BooksDisplay = ({
   gameOver,
   setBookList,
   chooseBook,
-  setScores,
+  updateScores,
   setGameOver,
-  scores,
   allBooksForGame,
   setAllBooksForGame,
 }) => {
@@ -64,19 +63,11 @@ const BooksDisplay = ({
         updateBookList(setBookList, overYear, direction, currentBook);
 
         chooseBook(allBooksForGame, setCurrentBook, setAllBooksForGame);
-        setScores((prev) => {
-          const newScores = { ...prev, current: prev.current++ };
-          if (newScores.current >= prev.high) {
-            newScores.high = newScores.current;
-          }
-          return newScores;
-        });
+        updateScores();
       } else {
         currentBook = { ...currentBook, correct: false };
         updateBookList(setBookList, overYear, direction, currentBook);
         setGameOver(true);
-
-        window.localStorage.setItem("bookGuesserHighScore", scores.high);
       }
     }
   };
