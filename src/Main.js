@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { allBooksWithDates } from "./consts";
+import { allBooksWithDates, handleDragEnd } from "./consts";
 import BooksDisplay from "./BooksDisplay";
 import ShareDialog from "./ShareDialog";
 import { GameOver } from "./GameOver";
@@ -28,19 +28,23 @@ const Main = () => {
   const [gameOver, setGameOver] = useState(false);
   const [scores, setScores] = useState({
     current: 0,
-    high: window.localStorage.getItem("bookGuesserHighScore") ?? 0,
+    high: parseInt(window.localStorage.getItem("bookGuesserHighScore")) ?? 0,
   });
   const [bookList, setBookList] = useState([]);
   const [currentGame, setCurrentGame] = useState(false);
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
   const updateScores = () => {
+    debugger;
+    console.log(JSON.stringify(scores));
     setScores((prev) => {
+      console.log("prev:", JSON.stringify(prev));
       const newScores = { ...prev, current: prev.current++ };
-      if (newScores.current >= prev.high) {
+      if (!prev.high || newScores.current >= prev.high) {
         newScores.high = newScores.current;
         window.localStorage.setItem("bookGuesserHighScore", scores.high);
       }
+      console.log("new:", JSON.stringify(newScores));
       return newScores;
     });
   };
@@ -89,7 +93,7 @@ const Main = () => {
 
       <div>
         {!gameOver && currentGame ? (
-          <Score scores={scores} />
+          <Score highScore={scores.high} currentScore={scores.current} />
         ) : gameOver ? (
           <GameOver
             scores={scores}
@@ -104,14 +108,12 @@ const Main = () => {
         <BooksDisplay
           bookList={bookList}
           currentBook={currentBook}
-          setCurrentBook={setCurrentBook}
           gameOver={gameOver}
-          setGameOver={setGameOver}
-          setBookList={setBookList}
+          handleDragEnd={handleDragEnd}
           chooseBook={chooseBook}
           updateScores={updateScores}
-          allBooksForGame={allBooksForGame}
-          setAllBooksForGame={setAllBooksForGame}
+          setGameOver={setGameOver}
+          setBookList={setBookList}
         ></BooksDisplay>
       )}
     </div>
