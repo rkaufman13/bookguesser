@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/bookguesser/static/css/main.b342def8.css",
-    "main.js": "/bookguesser/static/js/main.b4b68c2d.js",
+    "main.js": "/bookguesser/static/js/main.16fe7f9a.js",
     "static/js/787.4a7ef99e.chunk.js": "/bookguesser/static/js/787.4a7ef99e.chunk.js",
     "index.html": "/bookguesser/index.html",
     "main.b342def8.css.map": "/bookguesser/static/css/main.b342def8.css.map",
-    "main.b4b68c2d.js.map": "/bookguesser/static/js/main.b4b68c2d.js.map",
+    "main.16fe7f9a.js.map": "/bookguesser/static/js/main.16fe7f9a.js.map",
     "787.4a7ef99e.chunk.js.map": "/bookguesser/static/js/787.4a7ef99e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b342def8.css",
-    "static/js/main.b4b68c2d.js"
+    "static/js/main.16fe7f9a.js"
   ]
 }
