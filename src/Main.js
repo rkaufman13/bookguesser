@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { allBooksWithDates, handleDragEnd } from "./consts";
+import { allBooksWithDates } from "./consts";
 import BooksDisplay from "./BooksDisplay";
 import ShareDialog from "./ShareDialog";
 import { GameOver } from "./GameOver";
@@ -109,11 +109,13 @@ const Main = () => {
           bookList={bookList}
           currentBook={currentBook}
           gameOver={gameOver}
-          handleDragEnd={handleDragEnd}
           chooseBook={chooseBook}
           updateScores={updateScores}
           setGameOver={setGameOver}
           setBookList={setBookList}
+          setCurrentBook={setCurrentBook}
+          allBooksForGame={allBooksForGame}
+          setAllBooksForGame={setAllBooksForGame}
         ></BooksDisplay>
       )}
     </div>
