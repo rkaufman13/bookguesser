@@ -1,30 +1,14 @@
 import React, { useState } from "react";
-import { allBooksWithDates } from "./consts";
+import { allBooksWithDates, chooseNextBook } from "./consts";
 import BooksDisplay from "./BooksDisplay";
 import ShareDialog from "./ShareDialog";
 import { GameOver } from "./GameOver";
 import { Score } from "./Score";
 import { NewGame } from "./NewGame";
 
-export const chooseBook = (
-  allBooksForGame,
-  setCurrentBook,
-  setAllBooksForGame
-) => {
-  const arrayLength = allBooksForGame.length;
-  const randomIndex = Math.floor(Math.random() * arrayLength);
-  setCurrentBook((ignored) => {
-    const currentBook = allBooksForGame[randomIndex];
-    setAllBooksForGame((prev) => {
-      return prev.filter((book) => book.id !== currentBook.id);
-    });
-    return currentBook;
-  });
-};
-
 const Main = () => {
   const [allBooksForGame, setAllBooksForGame] = useState(allBooksWithDates());
-  const [currentBook, setCurrentBook] = useState();
+  const currentBook = chooseNextBook(allBooksForGame);
   const [gameOver, setGameOver] = useState(false);
   const [scores, setScores] = useState({
     current: 0,
@@ -76,7 +60,6 @@ const Main = () => {
     setCurrentGame(true);
     setGameOver(false);
     chooseAndPlaceBook();
-    chooseBook(allBooksForGame, setCurrentBook, setAllBooksForGame);
   };
 
   return (
@@ -109,11 +92,9 @@ const Main = () => {
           bookList={bookList}
           currentBook={currentBook}
           gameOver={gameOver}
-          chooseBook={chooseBook}
           updateScores={updateScores}
           setGameOver={setGameOver}
           setBookList={setBookList}
-          setCurrentBook={setCurrentBook}
           allBooksForGame={allBooksForGame}
           setAllBooksForGame={setAllBooksForGame}
         ></BooksDisplay>

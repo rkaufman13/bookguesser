@@ -9,28 +9,23 @@ const BooksDisplay = ({
   bookList,
   currentBook,
   gameOver,
-  chooseBook,
   updateScores,
   setGameOver,
   setBookList,
   allBooksForGame,
-  setCurrentBook,
   setAllBooksForGame,
 }) => {
   const handleDragEnd = (
     event,
     currentBook,
     bookList,
-    chooseBook,
     updateScores,
     setGameOver,
     setBookList,
     allBooksForGame,
-    setCurrentBook,
     setAllBooksForGame
   ) => {
     const { over, active } = event;
-    debugger;
     let correct = false;
     if (over && active.id !== over.id) {
       const activeYear = parseInt(active.id);
@@ -63,13 +58,11 @@ const BooksDisplay = ({
         handleCorrect(
           currentBook,
           updateBookList,
-          chooseBook,
           updateScores,
           setBookList,
           overYear,
           direction,
           allBooksForGame,
-          setCurrentBook,
           setAllBooksForGame
         );
       } else {
@@ -87,19 +80,16 @@ const BooksDisplay = ({
   const handleCorrect = (
     currentBook,
     updateBookList,
-    chooseBook,
     updateScores,
     setBookList,
     overYear,
     direction,
     allBooksForGame,
-    setCurrentBook,
     setAllBooksForGame
   ) => {
     currentBook = { ...currentBook, correct: true };
     updateBookList(setBookList, overYear, direction, currentBook);
 
-    chooseBook(allBooksForGame, setCurrentBook, setAllBooksForGame);
     updateScores();
   };
 
@@ -139,12 +129,10 @@ const BooksDisplay = ({
             e,
             currentBook,
             bookList,
-            chooseBook,
             updateScores,
             setGameOver,
             setBookList,
             allBooksForGame,
-            setCurrentBook,
             setAllBooksForGame
           )
         }
