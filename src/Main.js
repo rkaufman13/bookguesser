@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { allBooksWithDates, chooseNextBook } from "./consts";
+import React, { useState, useEffect } from "react";
+import {
+  allBooksWithDates,
+  chooseFirstBook,
+  chooseNextBook,
+  checkForGameOver,
+} from "./consts";
 import BooksDisplay from "./BooksDisplay";
 import ShareDialog from "./ShareDialog";
 import { GameOver } from "./GameOver";
@@ -8,15 +13,24 @@ import { NewGame } from "./NewGame";
 
 const Main = () => {
   const [allBooksForGame, setAllBooksForGame] = useState(allBooksWithDates());
+
   const currentBook = chooseNextBook(allBooksForGame);
-  const [gameOver, setGameOver] = useState(false);
   const [scores, setScores] = useState({
     current: 0,
     high: parseInt(window.localStorage.getItem("bookGuesserHighScore")) ?? 0,
   });
-  const [bookList, setBookList] = useState([]);
+
   const [currentGame, setCurrentGame] = useState(false);
+  const gameOver = checkForGameOver(allBooksForGame, currentGame);
+
   const [shareModalVisible, setShareModalVisible] = useState(false);
+
+  useEffect(() => {
+    const activeBooks = allBooksForGame.filter((book) => book.correct);
+    if (activeBooks.length === 0) {
+      chooseFirstBook(allBooksForGame, setAllBooksForGame);
+    }
+  }, [allBooksForGame, currentBook]);
 
   const updateScores = () => {
     debugger;
@@ -37,18 +51,8 @@ const Main = () => {
     setShareModalVisible(!shareModalVisible);
   };
 
-  //special case for first turn
-  const chooseAndPlaceBook = () => {
-    const arrayLength = allBooksForGame.length;
-    const randomIndex = Math.floor(Math.random() * arrayLength);
-    const startingBook = { ...allBooksForGame[randomIndex], correct: true };
-    const newList = [...allBooksForGame].toSpliced(0, randomIndex, 1);
-    setAllBooksForGame(newList);
-    setBookList([startingBook]);
-  };
-
   const clearBookList = () => {
-    setBookList([]);
+    setAllBooksForGame(allBooksWithDates());
   };
 
   const startGame = () => {
@@ -58,8 +62,6 @@ const Main = () => {
       return scores;
     });
     setCurrentGame(true);
-    setGameOver(false);
-    chooseAndPlaceBook();
   };
 
   return (
@@ -89,14 +91,10 @@ const Main = () => {
       </div>
       {currentGame && (
         <BooksDisplay
-          bookList={bookList}
           currentBook={currentBook}
           gameOver={gameOver}
-          updateScores={updateScores}
-          setGameOver={setGameOver}
-          setBookList={setBookList}
-          allBooksForGame={allBooksForGame}
-          setAllBooksForGame={setAllBooksForGame}
+          allBooks={allBooksForGame}
+          setAllBooks={setAllBooksForGame}
         ></BooksDisplay>
       )}
     </div>

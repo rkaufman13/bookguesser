@@ -5,28 +5,11 @@ import { DndContext } from "@dnd-kit/core";
 import { BookToPlace } from "./BookToPlace";
 import { DroppableContainer } from "./DroppableContainer";
 
-const BooksDisplay = ({
-  bookList,
-  currentBook,
-  gameOver,
-  updateScores,
-  setGameOver,
-  setBookList,
-  allBooksForGame,
-  setAllBooksForGame,
-}) => {
-  const handleDragEnd = (
-    event,
-    currentBook,
-    bookList,
-    updateScores,
-    setGameOver,
-    setBookList,
-    allBooksForGame,
-    setAllBooksForGame
-  ) => {
+const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
+  const handleDragEnd = (event, currentBook, allBooks, setAllBooks) => {
     const { over, active } = event;
     let correct = false;
+    const bookList = allBooks.filter((book) => book.correct);
     if (over && active.id !== over.id) {
       const activeYear = parseInt(active.id);
       const overYear = parseInt(over.id.substring(0, 4));
@@ -55,95 +38,60 @@ const BooksDisplay = ({
       }
 
       if (correct) {
-        handleCorrect(
-          currentBook,
-          updateBookList,
-          updateScores,
-          setBookList,
-          overYear,
-          direction,
-          allBooksForGame,
-          setAllBooksForGame
-        );
+        handleCorrect(currentBook, allBooks, setAllBooks);
       } else {
-        handleIncorrect(
-          currentBook,
-          updateBookList,
-          setGameOver,
-          overYear,
-          direction
-        );
+        handleIncorrect(currentBook, allBooks, setAllBooks);
       }
     }
   };
 
-  const handleCorrect = (
-    currentBook,
-    updateBookList,
-    updateScores,
-    setBookList,
-    overYear,
-    direction,
-    allBooksForGame,
-    setAllBooksForGame
-  ) => {
+  const handleCorrect = (currentBook, allBooks, setAllBooks) => {
+    const oldBook = currentBook;
+    const index = allBooks.findIndex((bookToFind) => bookToFind === oldBook);
     currentBook = { ...currentBook, correct: true };
-    updateBookList(setBookList, overYear, direction, currentBook);
-
-    updateScores();
-  };
-
-  const handleIncorrect = (
-    currentBook,
-    updateBookList,
-    setGameOver,
-    overYear,
-    direction
-  ) => {
-    currentBook = { ...currentBook, correct: false };
-    updateBookList(setBookList, overYear, direction, currentBook);
-    setGameOver(true);
-  };
-
-  function updateBookList(setBookList, overYear, direction, currentBook) {
-    setBookList((items) => {
-      const tempBookList = [...items];
-      const oldIndex = items.findIndex((item) => {
-        return parseInt(item.id) === overYear;
-      });
-      if (direction === "-") {
-        tempBookList.splice(oldIndex, 0, currentBook);
-      }
-      if (direction === "+") {
-        tempBookList.splice(oldIndex + 1, 0, currentBook);
-      }
-      return tempBookList;
+    setAllBooks((prev) => {
+      prev.splice(index, 1, currentBook);
+      return prev;
     });
-  }
+  };
 
+  const handleIncorrect = (currentBook, allBooks, setAllBooks) => {
+    debugger;
+    const oldBook = { ...currentBook };
+    // delete oldBook.current;
+    const index = allBooks.findIndex((bookToFind) =>
+      allBooks.findIndex(
+        (bookToFind) =>
+          bookToFind.id == oldBook.id &&
+          bookToFind.author == oldBook.author &&
+          bookToFind.title == oldBook.title
+      )
+    );
+    currentBook = {
+      ...currentBook,
+      correct: false,
+      incorrect: true,
+      current: false,
+    };
+    setAllBooks((prev) => prev.toSpliced(index, 1, currentBook));
+  };
+  const bookList = allBooks.filter((book) => book.correct);
+  let firstId = "1000-1";
+  if (bookList.length) {
+    firstId = `{$bookList[0].id} - 1`;
+  }
   return (
     <>
       <DndContext
-        onDragEnd={(e) =>
-          handleDragEnd(
-            e,
-            currentBook,
-            bookList,
-            updateScores,
-            setGameOver,
-            setBookList,
-            allBooksForGame,
-            setAllBooksForGame
-          )
-        }
+        onDragEnd={(e) => handleDragEnd(e, currentBook, allBooks, setAllBooks)}
       >
         {!gameOver && <BookToPlace currentBook={currentBook}></BookToPlace>}
         <div id="containerParent">
           <div className="container">
-            {currentBook && bookList && (
+            {currentBook && (
               <DroppableContainer
-                id={`${bookList[0].id}-1`}
-                key={`${bookList[0].id}-1`}
+                id={firstId}
+                key={firstId}
                 gameOver={gameOver}
               >
                 {" "}
