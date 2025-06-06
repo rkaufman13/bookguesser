@@ -58,7 +58,9 @@ const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
     );
   };
 
-  const bookList = allBooks.filter((book) => book.correct);
+  const bookList = gameOver
+    ? allBooks.filter((book) => book.correct === true || book.correct === false)
+    : allBooks.filter((book) => book.correct);
   let firstId = "1000-1";
   if (bookList.length) {
     firstId = `${bookList[0].id}-1`;
