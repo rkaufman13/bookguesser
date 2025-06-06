@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <div className="footer">
-      Made in a weekend by{" "}
+      Made in a weekend (or two) by{" "}
       <a href="http://github.com/rkaufman13">Rachel Kaufman</a>. Book data comes
       from the Guardian's{" "}
       <a href="https://www.theguardian.com/books/2009/jan/23/bestbooks-fiction">
