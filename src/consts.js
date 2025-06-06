@@ -36,5 +36,20 @@ export const chooseFirstBook = (books, setAllBooks) => {
 };
 
 export const checkForGameOver = (books, currentGame) => {
-  return currentGame && books.filter((book) => book.incorrect).length > 0;
+  return (
+    currentGame && books.filter((book) => book.correct === false).length > 0
+  );
+};
+
+export const calculateScore = (bookList) => {
+  return bookList.filter((book) => book.correct).length - 1;
+};
+
+export const calculateHighScore = (score) => {
+  let localScore =
+    parseInt(window.localStorage.getItem("bookGuesserHighScore")) ?? 0;
+  if (!localScore || score > localScore) {
+    return score;
+  }
+  return localScore;
 };

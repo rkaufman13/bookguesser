@@ -8,6 +8,7 @@ import { DroppableContainer } from "./DroppableContainer";
 const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
   const handleDragEnd = (event, currentBook, allBooks, setAllBooks) => {
     const { over, active } = event;
+    debugger;
     let correct = false;
     const bookList = allBooks.filter((book) => book.correct);
     if (over && active.id !== over.id) {
@@ -37,48 +38,30 @@ const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
         }
       }
 
-      if (correct) {
-        handleCorrect(currentBook, allBooks, setAllBooks);
-      } else {
-        handleIncorrect(currentBook, allBooks, setAllBooks);
-      }
+      handleUpdate(currentBook, allBooks, setAllBooks, correct);
     }
   };
 
-  const handleCorrect = (currentBook, allBooks, setAllBooks) => {
-    const oldBook = currentBook;
-    const index = allBooks.findIndex((bookToFind) => bookToFind === oldBook);
-    currentBook = { ...currentBook, correct: true };
-    setAllBooks((prev) => {
-      prev.splice(index, 1, currentBook);
-      return prev;
-    });
-  };
-
-  const handleIncorrect = (currentBook, allBooks, setAllBooks) => {
-    debugger;
+  const handleUpdate = (currentBook, allBooks, setAllBooks, correct) => {
     const oldBook = { ...currentBook };
     // delete oldBook.current;
-    const index = allBooks.findIndex((bookToFind) =>
-      allBooks.findIndex(
-        (bookToFind) =>
-          bookToFind.id == oldBook.id &&
-          bookToFind.author == oldBook.author &&
-          bookToFind.title == oldBook.title
-      )
+    const index = allBooks.findIndex(
+      (bookToFind) =>
+        bookToFind.id === oldBook.id &&
+        bookToFind.author === oldBook.author &&
+        bookToFind.title === oldBook.title
     );
-    currentBook = {
-      ...currentBook,
-      correct: false,
-      incorrect: true,
-      current: false,
-    };
-    setAllBooks((prev) => prev.toSpliced(index, 1, currentBook));
+
+    currentBook = { ...currentBook, correct: correct, current: false };
+    setAllBooks((prev) =>
+      prev.toSpliced(index, 1, currentBook).sort((b1, b2) => b1.year - b2.year)
+    );
   };
+
   const bookList = allBooks.filter((book) => book.correct);
   let firstId = "1000-1";
   if (bookList.length) {
-    firstId = `{$bookList[0].id} - 1`;
+    firstId = `${bookList[0].id}-1`;
   }
   return (
     <>
@@ -99,22 +82,24 @@ const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
             )}
             {currentBook &&
               bookList &&
-              bookList.map((book, idx) => {
-                return (
-                  <>
-                    <div key={book.year} className="bookContainer">
-                      <Book data={book} gameOver={gameOver} />
-                    </div>
-                    <DroppableContainer
-                      id={`${book.year}+1`}
-                      key={`${book.year}+1`}
-                      gameOver={gameOver}
-                    >
-                      {" "}
-                    </DroppableContainer>
-                  </>
-                );
-              })}
+              bookList
+                .sort((book1, book2) => book1.year - book2.year)
+                .map((book, idx) => {
+                  return (
+                    <>
+                      <div key={book.year} className="bookContainer">
+                        <Book data={book} gameOver={gameOver} />
+                      </div>
+                      <DroppableContainer
+                        id={`${book.year}+1`}
+                        key={`${book.year}+1`}
+                        gameOver={gameOver}
+                      >
+                        {" "}
+                      </DroppableContainer>
+                    </>
+                  );
+                })}
           </div>
         </div>
       </DndContext>

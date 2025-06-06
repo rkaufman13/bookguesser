@@ -4,6 +4,8 @@ import {
   chooseFirstBook,
   chooseNextBook,
   checkForGameOver,
+  calculateScore,
+  calculateHighScore,
 } from "./consts";
 import BooksDisplay from "./BooksDisplay";
 import ShareDialog from "./ShareDialog";
@@ -15,10 +17,8 @@ const Main = () => {
   const [allBooksForGame, setAllBooksForGame] = useState(allBooksWithDates());
 
   const currentBook = chooseNextBook(allBooksForGame);
-  const [scores, setScores] = useState({
-    current: 0,
-    high: parseInt(window.localStorage.getItem("bookGuesserHighScore")) ?? 0,
-  });
+  const score = calculateScore(allBooksForGame);
+  const highScore = calculateHighScore(score);
 
   const [currentGame, setCurrentGame] = useState(false);
   const gameOver = checkForGameOver(allBooksForGame, currentGame);
@@ -32,21 +32,6 @@ const Main = () => {
     }
   }, [allBooksForGame, currentBook]);
 
-  const updateScores = () => {
-    debugger;
-    console.log(JSON.stringify(scores));
-    setScores((prev) => {
-      console.log("prev:", JSON.stringify(prev));
-      const newScores = { ...prev, current: prev.current++ };
-      if (!prev.high || newScores.current >= prev.high) {
-        newScores.high = newScores.current;
-        window.localStorage.setItem("bookGuesserHighScore", scores.high);
-      }
-      console.log("new:", JSON.stringify(newScores));
-      return newScores;
-    });
-  };
-
   const handleOpenModal = () => {
     setShareModalVisible(!shareModalVisible);
   };
@@ -57,20 +42,16 @@ const Main = () => {
 
   const startGame = () => {
     clearBookList();
-    setScores((prev) => {
-      const scores = { current: 0, high: prev.high };
-      return scores;
-    });
     setCurrentGame(true);
   };
-
+  console.log(score);
   return (
     <div className="main">
       {shareModalVisible && (
         <ShareDialog
           shareModalVisible={shareModalVisible}
           setShareModalVisible={setShareModalVisible}
-          score={scores.current}
+          score={score}
         />
       )}
 
@@ -78,10 +59,11 @@ const Main = () => {
 
       <div>
         {!gameOver && currentGame ? (
-          <Score highScore={scores.high} currentScore={scores.current} />
+          <Score highScore={highScore} currentScore={score} />
         ) : gameOver ? (
           <GameOver
-            scores={scores}
+            score={score}
+            highScore={highScore}
             startGame={startGame}
             handleOpenModal={handleOpenModal}
           />
