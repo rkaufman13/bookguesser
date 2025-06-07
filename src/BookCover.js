@@ -18,7 +18,7 @@ const TextCover = ({ title }) => {
   return (
     <div className="book textBook">
       (No cover available)
-      <hr />
+      <br />
       {title}
     </div>
   );

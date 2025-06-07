@@ -176,7 +176,19 @@ background-color: rgba(225,198,153,0.1)
   flex-direction: row;
   height: fit-content;
   justify-content: center;
+  
 margin-top: 2rem;
+padding: 0 10px;
+
+}
+
+hr {
+  height:5px;
+  width:100%;
+  color:#9B3D12;
+  border:0;
+border-radius: 30%;
+  background: #9B3D12;
 }
 
 
@@ -185,6 +197,9 @@ margin-top: 2rem;
   height:var(--book-img-height);
   transition: width 1s;
   flex-shrink: 0;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
 
 }
 

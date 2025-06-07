@@ -78,7 +78,7 @@ const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
                 key={firstId}
                 gameOver={gameOver}
               >
-                {" "}
+                <hr></hr>
               </DroppableContainer>
             )}
             {currentBook &&
@@ -96,7 +96,7 @@ const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
                         key={`${book.year}+1`}
                         gameOver={gameOver}
                       >
-                        {" "}
+                        <hr />
                       </DroppableContainer>
                     </>
                   );
