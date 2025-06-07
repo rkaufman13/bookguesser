@@ -4,6 +4,7 @@ import { DndContext } from "@dnd-kit/core";
 
 import { BookToPlace } from "./BookToPlace";
 import { DroppableContainer } from "./DroppableContainer";
+import { FirstTurnHint } from "./FirstTurnHint";
 
 const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
   const handleDragEnd = (event, currentBook, allBooks, setAllBooks) => {
@@ -64,22 +65,31 @@ const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
   if (bookList.length) {
     firstId = `${bookList[0].id}-1`;
   }
+  const isFirstTurn = allBooks.filter((book) => book.correct).length === 1;
   return (
     <>
       <DndContext
         onDragEnd={(e) => handleDragEnd(e, currentBook, allBooks, setAllBooks)}
       >
-        {!gameOver && <BookToPlace currentBook={currentBook}></BookToPlace>}
+        {!gameOver && (
+          <div className="container">
+            {" "}
+            <FirstTurnHint isFirstTurn={isFirstTurn}></FirstTurnHint>
+            <BookToPlace currentBook={currentBook}></BookToPlace>
+          </div>
+        )}
         <div id="containerParent">
           <div className="container">
             {currentBook && (
-              <DroppableContainer
-                id={firstId}
-                key={firstId}
-                gameOver={gameOver}
-              >
-                <hr></hr>
-              </DroppableContainer>
+              <div>
+                <DroppableContainer
+                  id={firstId}
+                  key={firstId}
+                  gameOver={gameOver}
+                >
+                  <hr></hr>
+                </DroppableContainer>
+              </div>
             )}
             {currentBook &&
               bookList &&

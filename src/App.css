@@ -182,6 +182,10 @@ padding: 0 10px;
 
 }
 
+#firstTurnHint{
+  width:200px;
+}
+
 hr {
   height:5px;
   width:100%;
