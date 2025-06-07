@@ -11,8 +11,19 @@ export const allBooksWithDates = () => {
 };
 
 export const chooseNextBook = (books) => {
+  const existingYears = books
+    .map((book) => {
+      if (book.correct) {
+        return book.year;
+      }
+      return null;
+    })
+    .filter((year) => year !== null);
   const availableBooks = books.filter(
-    (book) => book.incorrect == null && book.correct == null
+    (book) =>
+      book.incorrect == null &&
+      book.correct == null &&
+      existingYears.indexOf(book.year) === -1
   );
   const arrayLength = availableBooks.length;
   const randomIndex = Math.floor(Math.random() * arrayLength);

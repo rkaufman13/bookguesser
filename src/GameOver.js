@@ -1,5 +1,4 @@
 export const GameOver = ({ score, highScore, startGame, handleOpenModal }) => {
-  debugger;
   return (
     <div>
       <h1>Game over!</h1> You scored <span className="score">{score}</span>{" "}

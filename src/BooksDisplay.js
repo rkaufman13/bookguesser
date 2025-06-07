@@ -8,7 +8,6 @@ import { DroppableContainer } from "./DroppableContainer";
 const BooksDisplay = ({ currentBook, gameOver, allBooks, setAllBooks }) => {
   const handleDragEnd = (event, currentBook, allBooks, setAllBooks) => {
     const { over, active } = event;
-    debugger;
     let correct = false;
     const bookList = allBooks.filter((book) => book.correct);
     if (over && active.id !== over.id) {

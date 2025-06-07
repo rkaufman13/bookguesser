@@ -44,7 +44,7 @@ const Main = () => {
     clearBookList();
     setCurrentGame(true);
   };
-  console.log(score);
+
   return (
     <div className="main">
       {shareModalVisible && (
